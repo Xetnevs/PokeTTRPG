@@ -1,0 +1,39 @@
+.ability-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 0.8em;
+}
+
+.ability-name {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.ability-text {
+  width: 100%;
+}
+
+.ability-revert-button img {
+  height: 15px;
+}
+
+.ability-revert-button {
+  padding: 0px;
+  background-color: #efefef;
+  transition: background-color 0.3s ease;
+  margin-top: 5px;
+}
+
+.ability-revert-button:active {
+  background-color: #b0b0b0;
+}
+.ability-revert-button:hover:not(:active) {
+  background-color: #d0d0d0;
+}
+
+.ability-button-container {
+  width: 100%;
+  text-align: right;
+}

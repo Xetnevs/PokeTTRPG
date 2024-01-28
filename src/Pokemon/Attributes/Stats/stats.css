@@ -1,0 +1,42 @@
+.stat-container {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 0.4fr));
+  grid-auto-rows: 20px;
+  gap: 5px;
+}
+
+.stat-group {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 0.5fr));
+  grid-auto-rows: 15px;
+  gap: 5px;
+}
+
+.stat-label {
+  font-weight: bold;
+  font-size: 0.8em;
+  margin-bottom: 5px;
+  white-space: nowrap;
+}
+
+.stat-input {
+  padding: 8px;
+  margin-bottom: 5px;
+  width: 7ch;
+  font-size: 0.8em;
+}
+
+.stat-info {
+  font-size: 12px;
+  color: #555;
+  grid-column: span 2;
+  white-space: nowrap;
+}
+
+.single-column {
+  grid-column: span 2;
+}
+
+.double-row {
+  grid-row: span 2;
+}

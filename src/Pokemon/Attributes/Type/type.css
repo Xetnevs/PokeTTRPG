@@ -1,0 +1,129 @@
+.type-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 0.8em;
+}
+
+.type-icon {
+  max-height: 20px;
+  margin-bottom: 5px; /* Adjust as needed for spacing */
+}
+
+.type-info {
+  text-align: center;
+  margin-right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.type-weakness-icon {
+  display: inline-block;
+}
+
+.type-weakness-table {
+  width: 85px;
+  border-radius: 40px;
+  -moz-border-radius: 40px;
+  -webkit-border-radius: 40px;
+  -khtml-border-radius: 40px;
+  -icab-border-radius: 40px;
+  -o-border-radius: 40px;
+  text-align: center;
+  border-collapse: separate;
+  text-indent: initial;
+  border-spacing: 2px;
+}
+
+.type-weakness-icon-label {
+  color: #fff;
+}
+
+.type-weakness-modifier {
+  width: 20px;
+  border-radius: 40px;
+  -moz-border-radius: 40px;
+  -webkit-border-radius: 40px;
+  -khtml-border-radius: 40px;
+  -icab-border-radius: 40px;
+  -o-border-radius: 40px;
+  background: #fff;
+}
+
+.normal {
+  background: #a8a878;
+  border: 1px solid #6d6d4e;
+}
+
+.poison {
+  background: #a040a0;
+  border: 1px solid #682a68;
+}
+.ground {
+  background: #e0c068;
+  border: 1px solid #927d44;
+}
+.rock {
+  background: #b8a038;
+  border: 1px solid #786824;
+}
+.bug {
+  background: #a8b820;
+  border: 1px solid #6d7815;
+}
+.ghost {
+  background: #705898;
+  border: 1px solid #493963;
+}
+.steel {
+  background: #b8b8d0;
+  border: 1px solid #787887;
+}
+.dragon {
+  background: #b8b8d0;
+  border: 1px solid #787887;
+}
+.dark {
+  background: #705848;
+  border: 1px solid #49392f;
+}
+.grass {
+  background: #78c850;
+  border: 1px solid #4e8234;
+}
+.flying {
+  background: #a890f0;
+  border: 1px solid #6d5e9c;
+}
+.fire {
+  background: #f08030;
+  border: 1px solid #9c531f;
+}
+.psychic {
+  background: #f85888;
+  border: 1px solid #a13959;
+}
+.ice {
+  background: #98d8d8;
+  border: 1px solid #638d8d;
+}
+.fighting {
+  background: #c03028;
+  border: 1px solid #7d1f1a;
+}
+.water {
+  background: #6890f0;
+  border: 1px solid #445e9c;
+}
+.electric {
+  background: #f8d030;
+  border: 1px solid #a1871f;
+}
+.fairy {
+  background: #ee99ac;
+  border: 1px solid #9b6470;
+}

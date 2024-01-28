@@ -1,0 +1,40 @@
+.moves-container {
+  grid-column: span 3;
+}
+
+.moves-table {
+  width: 100%;
+}
+
+.moves-table-header {
+  background: black;
+  color: white;
+  font-size: 0.7em;
+}
+
+.moves-table tbody td {
+  border: 2px black dashed;
+  border-top: none;
+  font-size: 0.7em;
+}
+
+.moves-table-header th {
+  border: 2px white dashed;
+  border-top: none;
+  border-bottom: none;
+}
+
+.moves-table-header th:first-child {
+  border-left: 2px black solid;
+}
+
+.moves-table-header th:last-child {
+  border-right: 2px black solid;
+}
+
+.move-input input {
+  font-size: 1em;
+}
+.move-input .dropdown-item {
+  font-size: 0.8em;
+}

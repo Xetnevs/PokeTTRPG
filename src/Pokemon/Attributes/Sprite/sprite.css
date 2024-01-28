@@ -1,0 +1,24 @@
+.pokemon-sprite {
+  max-width: 100%;
+  height: auto;
+  margin-top: 10px;
+}
+
+.sprite-container img {
+  width: auto;
+  height: 100%;
+  object-fit: contain;
+  max-height: 250px;
+  max-width: 250px;
+}
+
+.sprite-container .rnd {
+  width: 100%;
+  height: 100%;
+}
+
+.sprite-container .rnd__root-menu.rnd__menu--top {
+  top: 10%;
+  left: 10%;
+  bottom: auto;
+}

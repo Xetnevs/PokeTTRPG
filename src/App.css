@@ -1,0 +1,17 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+span.rbt-close-content {
+  display: none;
+}
+
+/* Add this CSS to your stylesheet or style block */
+/*
+.short-input {
+  width: 6ch;
+}
+*/
