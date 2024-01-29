@@ -5,50 +5,53 @@ import Type from 'src/Pokemon/Attributes/Type'
 import Ability from 'src/Pokemon/Attributes/Ability'
 import Evolution from 'src/Pokemon/Attributes/Evolution'
 import Moves from 'src/Pokemon/Moves/MovesTable.jsx'
-import PokemonSelector from 'src/Pokemon/PokemonSelector.jsx'
-import PokemonNameTrainerInfo from 'src/Pokemon/PokemonNameTrainerInfo.jsx'
+import PokemonSelector from 'src/Pokemon/PokemonSelector'
+import PokemonNickname from 'src/Pokemon/PokemonNickname'
+import TrainerName from 'src/Pokemon/TrainerName'
+import SaveStateButton from 'src/Pokemon/SaveStateButton'
+import UploadStateButton from 'src/Pokemon/UploadStateButton'
 import Notes from 'src/Pokemon/Notes'
-import SaveUploadStateButton from 'src/Pokemon/SaveUploadStateButton.jsx'
 import LoadingSpinner from 'src/LoadingSpinner'
 import { isEmpty } from 'lodash'
 import { sanitizeString } from 'src/utils.js'
 import 'src/Pokemon/pokemon.css'
 
 const Pokemon = () => {
-  const [nickname, setNickname] = useState()
-  const [trainer, setTrainer] = useState('')
   const [pokemonData, setPokemonData] = useState({})
   const [pokemonState, setPokemonState] = useState({})
-  useEffect(() => setNickname(sanitizeString(pokemonData.name)), [pokemonData])
 
   const onPokemonStateChange = newState =>
     setPokemonState({ ...pokemonState, ...newState })
 
   return (
     <div className="pokemon-card">
-      <div className="name-container">
+      <div className="names-container">
         <PokemonSelector
-          setPokemonData={setPokemonData}
           pokemonState={pokemonState}
-          onPokemonStateChange={onPokemonStateChange}
+          onPokemonStateChange={setPokemonState}
         />
-        <PokemonNameTrainerInfo
-          pokemon={pokemonData}
-          pokemonState={pokemonState}
-          onPokemonStateChange={onPokemonStateChange}
-        />
+        {!isEmpty(pokemonState?.species) && (
+          <>
+            <PokemonNickname
+              pokemonState={pokemonState}
+              onPokemonStateChange={onPokemonStateChange}
+            />
+            <TrainerName
+              pokemonState={pokemonState}
+              onPokemonStateChange={onPokemonStateChange}
+            />{' '}
+          </>
+        )}
       </div>
-      {!isEmpty(pokemonData) && (
+      {!isEmpty(pokemonState?.species) && (
         <>
           <Stats
-            pokemon={pokemonData}
             pokemonState={pokemonState}
             onPokemonStateChange={onPokemonStateChange}
           />
           <div className="right-hand-block">
-            <Evolution pokemon={pokemonData} pokemonState={pokemonState} />
+            <Evolution pokemonState={pokemonState} />
             <Ability
-              pokemon={pokemonData}
               pokemonState={pokemonState}
               onPokemonStateChange={onPokemonStateChange}
             />
@@ -58,58 +61,30 @@ const Pokemon = () => {
             />
           </div>
           <Sprite
-            pokemon={pokemonData}
             pokemonState={pokemonState}
             onPokemonStateChange={onPokemonStateChange}
           />
-          <Type pokemon={pokemonData} pokemonState={pokemonState} />
+          <Type pokemonState={pokemonState} />
 
           <Moves
-            pokemon={pokemonData}
             pokemonState={pokemonState}
             onPokemonStateChange={onPokemonStateChange}
           />
         </>
       )}
 
-      <SaveUploadStateButton
-        pokemonState={pokemonState}
-        onPokemonStateChange={setPokemonState}
-      />
+      <div className="save-upload-container">
+        <SaveStateButton
+          pokemonState={pokemonState}
+          onPokemonStateChange={setPokemonState}
+        />
+        <UploadStateButton
+          pokemonState={pokemonState}
+          onPokemonStateChange={setPokemonState}
+        />
+      </div>
     </div>
   )
 }
-
-/*
-      {!isEmpty(pokemonData) && (
-        <>
-          <Stats
-            pokemon={pokemonData}
-            pokemonState={pokemonState}
-            onPokemonStateChange={onPokemonStateChange}
-          />
-          <div className="right-hand-block">
-            <Evolution pokemon={pokemonData} />
-            <Ability
-              pokemon={pokemonData}
-              pokemonState={pokemonState}
-              onPokemonStateChange={onPokemonStateChange}
-            />
-            <Notes
-              pokemonState={pokemonState}
-              onPokemonStateChange={onPokemonStateChange}
-            />
-          </div>
-          <Sprite
-            pokemon={pokemonData}
-            pokemonState={pokemonState}
-            onPokemonStateChange={onPokemonStateChange}
-          />
-          <Type pokemon={pokemonData} />
-
-          <Moves pokemon={pokemonData} pokemonState={pokemonState} />
-        </>
-      )}
-*/
 
 export default Pokemon

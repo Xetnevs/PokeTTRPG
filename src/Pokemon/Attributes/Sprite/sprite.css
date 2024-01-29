@@ -17,7 +17,7 @@
   height: 100%;
 }
 
-.sprite-container .rnd__root-menu.rnd__menu--top {
+.sprite-container .rnd__root-menu {
   top: 10%;
   left: 10%;
   bottom: auto;

@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react'
 import { sanitizeString } from 'src/utils.js'
-import { usePokedex } from 'src/PokedexContext.jsx'
+import { usePokedex } from 'src/Contexts/PokedexContext'
 import { map, some } from 'lodash'
 import 'src/Pokemon/Attributes/Type/type.css'
 import TypeWeaknessIcon from 'src/Pokemon/Attributes/Type/TypeWeaknessIcon.jsx'
@@ -29,11 +29,11 @@ const getTypeMatchups = (typeDetails, pokemon) =>
     {}
   )
 
-const PokemonType = ({ pokemon, pokemonState: { selectedVariety } }) => {
+const PokemonType = ({ pokemonState: { species, selectedVariety } }) => {
   const Pokedex = usePokedex()
   const typeDetails = getTypeMatchups(
     Pokedex.pokemonData.types,
-    pokemon.varieties[selectedVariety]
+    species.varieties[selectedVariety]
   )
 
   return (
@@ -41,7 +41,7 @@ const PokemonType = ({ pokemon, pokemonState: { selectedVariety } }) => {
       <div className="type-info">
         <h5>Type</h5>
         <div className="type-icons-list">
-          {pokemon.varieties[selectedVariety].types.map(type => (
+          {species.varieties[selectedVariety].types.map(type => (
             <img
               className="type-icon"
               src={`/src/assets/types/${type}.png`}
@@ -54,10 +54,14 @@ const PokemonType = ({ pokemon, pokemonState: { selectedVariety } }) => {
         <div className="type-info">
           <h5>Type Resistance</h5>
           <div className="type-icons-list">
-            {map(typeDetails, (value, key) => {
-              if (value < 1) {
+            {map(typeDetails, (multiplier, type) => {
+              if (multiplier < 1) {
                 return (
-                  <TypeWeaknessIcon key={key} type={key} multiplier={value} />
+                  <TypeWeaknessIcon
+                    key={type}
+                    type={type}
+                    multiplier={multiplier}
+                  />
                 )
               }
             })}
@@ -68,10 +72,14 @@ const PokemonType = ({ pokemon, pokemonState: { selectedVariety } }) => {
         <div className="type-info">
           <h5>Type Weakness</h5>
           <div className="type-icons-list">
-            {map(typeDetails, (value, key) => {
-              if (value > 1) {
+            {map(typeDetails, (multiplier, type) => {
+              if (multiplier > 1) {
                 return (
-                  <TypeWeaknessIcon key={key} type={key} multiplier={value} />
+                  <TypeWeaknessIcon
+                    key={type}
+                    type={type}
+                    multiplier={multiplier}
+                  />
                 )
               }
             })}
@@ -82,10 +90,14 @@ const PokemonType = ({ pokemon, pokemonState: { selectedVariety } }) => {
         <div className="type-info">
           <h5>Type Immunity</h5>
           <div className="type-icons-list">
-            {map(typeDetails, (value, key) => {
-              if (value === 0) {
+            {map(typeDetails, (multiplier, type) => {
+              if (multiplier === 0) {
                 return (
-                  <TypeWeaknessIcon key={key} type={key} multiplier={value} />
+                  <TypeWeaknessIcon
+                    key={type}
+                    type={type}
+                    multiplier={multiplier}
+                  />
                 )
               }
             })}

@@ -5,18 +5,21 @@ import { Dropdown } from 'react-nested-dropdown'
 import 'react-nested-dropdown/dist/styles.css'
 import 'src/Pokemon/Attributes/Sprite/sprite.css'
 
-const mapToDropdownItems = onSelect => (result, value, key) => {
+const mapToDropdownItems = onSelect => (acc, value, key) => {
   if (isObject(value)) {
-    return [
-      ...result,
-      {
-        label: sanitizeString(key),
-        items: reduce(value, mapToDropdownItems(onSelect), []),
-      },
-    ]
+    const items = reduce(value, mapToDropdownItems(onSelect), [])
+    if (items.length) {
+      return [
+        ...acc,
+        {
+          label: sanitizeString(key),
+          items,
+        },
+      ]
+    }
   } else if (value) {
     return [
-      ...result,
+      ...acc,
       {
         label: sanitizeString(key),
         url: value,
@@ -24,19 +27,21 @@ const mapToDropdownItems = onSelect => (result, value, key) => {
       },
     ]
   }
-  return result
+  return acc
 }
 
 const PokemonSprite = ({
-  pokemon,
-  pokemonState: { sprite, selectedVariety },
+  pokemonState: { species, sprite, selectedVariety },
   onPokemonStateChange,
 }) => {
+  const officialArt =
+    species.varieties[selectedVariety].sprites.other['official-artwork']
+  const front_default =
+    species.varieties[selectedVariety].sprites['front_default']
   const items = reduce(
     {
-      ...pokemon.varieties[selectedVariety].sprites.versions,
-      ['official-artwork']:
-        pokemon.varieties[selectedVariety].sprites.other['official-artwork'],
+      ...species.varieties[selectedVariety].sprites.versions,
+      ['official-artwork']: officialArt,
     },
     mapToDropdownItems(url =>
       onPokemonStateChange({
@@ -44,7 +49,7 @@ const PokemonSprite = ({
       })
     ),
     []
-  )
+  ).sort((a, b) => a.label.localeCompare(b.label))
 
   return (
     <div className="sprite-container">
@@ -53,12 +58,7 @@ const PokemonSprite = ({
           <img
             className="pokemon-sprite"
             onClick={onClick}
-            src={
-              sprite ||
-              pokemon.varieties[selectedVariety].sprites.other[
-                'official-artwork'
-              ].front_default
-            }
+            src={sprite || officialArt.front_default || front_default}
           />
         )}
       </Dropdown>

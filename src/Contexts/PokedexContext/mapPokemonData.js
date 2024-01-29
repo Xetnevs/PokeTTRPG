@@ -1,32 +1,33 @@
-import React, { useState, useEffect, useContext, useMemo } from 'react'
 import { sanitizeString } from 'src/utils.js'
-import parseEvolution from 'src/parseEvolution'
-import { Pokedex } from 'pokeapi-js-wrapper'
-import { request } from 'graphql-request'
-import localForage from 'localforage'
-import queryForAll from 'src/queryForAll'
+import { isEqual } from 'lodash'
+import parseEvolution from 'src/Contexts/PokedexContext/parseEvolution'
+// import parseEvolution2 from 'src/Contexts/PokedexContext/parseEvolution2'
+
+// const getEvolution = (species, allSpecies, varietyName) => {
+//   const data1 = parseEvolution(
+//                 species,
+//                 allSpecies,
+//                 varietyName
+//               )
+//   const data2 = parseEvolution2(
+//                 species,
+//                 allSpecies,
+//                 varietyName
+//               )
+
+//   if (!isEqual(data1, data2)) {
+//     console.log('warning mismatch')
+//     console.log(data1)
+//     console.log(data2)
+//     console.log('-----')
+//   }
+
+//   return data1
+// }
 
 const BASE_STAT_DIVIDER = 20
 
-const pokettrpgStore = localForage.createInstance({
-  name: 'pokettrpg',
-})
-
-const PokedexContext = React.createContext()
-
-const PokedexInstance = new Pokedex()
-const myPokedex = {
-  resource: PokedexInstance.resource,
-  getPokemonsList: PokedexInstance.getPokemonsList,
-}
-
-const doQueryForAll = () =>
-  request('https://beta.pokeapi.co/graphql/v1beta', queryForAll).then(data => {
-    pokettrpgStore.setItem('pokettrpg-all-data', data)
-    return data
-  })
-
-const mapData = pokemonData => ({
+const mapPokemonData = pokemonData => ({
   ...pokemonData,
   species: pokemonData.species.reduce(
     (acc, species) => ({
@@ -44,20 +45,22 @@ const mapData = pokemonData => ({
               name: sanitizeString(variety.name),
               nameRaw: variety.name,
               evolvesTo: parseEvolution(
+                //this will effectively be the same call for each variety
                 species,
                 pokemonData.species,
                 variety.name
               ),
               abilities: variety.abilities.reduce(
-                (acc, { slot, ability }) => [
-                  ...acc.slice(0, slot - 1),
-                  {
+                (acc, { slot, ability }) => ({
+                  ...acc,
+                  [slot]: {
                     ...ability,
+                    slot,
                     name: sanitizeString(ability.name),
+                    nameRaw: ability.name,
                   },
-                  ...acc.slice(slot),
-                ],
-                []
+                }),
+                {}
               ),
               base_stats: variety.base_stats.reduce(
                 (acc, { value, stat: { name } }) => ({
@@ -93,32 +96,20 @@ const mapData = pokemonData => ({
     }),
     {}
   ),
+  abilities: pokemonData.abilities.reduce((acc, ability) => {
+    return {
+      ...acc,
+      [ability.id]: {
+        ...ability,
+        name: sanitizeString(ability.name),
+        nameRaw: ability.name,
+        effect_description:
+          ability.effect_description?.[0]?.short_effect ||
+          ability.flavor_texts?.[0]?.flavor_text ||
+          '',
+      },
+    }
+  }, {}),
 })
 
-export const usePokedex = () => {
-  return useContext(PokedexContext)
-}
-
-export default ({ children }) => {
-  const [pokemonData, setPokemonData] = useState({})
-  useEffect(() => {
-    pokettrpgStore.ready().then(() =>
-      pokettrpgStore
-        .getItem('pokettrpg-all-data')
-        .then(value => {
-          if (value) {
-            return Promise.resolve(value)
-          } else {
-            return doQueryForAll()
-          }
-        })
-        .then(mapData)
-        .then(setPokemonData)
-    )
-  }, [])
-  return (
-    <PokedexContext.Provider value={{ ...myPokedex, pokemonData }}>
-      {children}
-    </PokedexContext.Provider>
-  )
-}
+export default mapPokemonData

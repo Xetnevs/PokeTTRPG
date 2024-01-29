@@ -1,21 +1,6 @@
 import { sanitizeString } from 'src/utils.js'
 import { isEmpty, map, find } from 'lodash'
 
-const findEvolutionForName = (chain, targetName, previousSpecies = {}) => {
-  if (chain.species.name === targetName) {
-    return { ...chain, previousSpecies }
-  }
-
-  if (chain.evolves_to) {
-    for (const evolution of chain.evolves_to) {
-      const result = findEvolutionForName(evolution, targetName, chain.species)
-      if (result) {
-        return result
-      }
-    }
-  }
-}
-
 const getEvolutionTriggerText = details => {
   switch (details.evolution_trigger.name) {
     case 'level-up':
@@ -37,6 +22,12 @@ const getEvolutionTriggerText = details => {
       return `after losing at least 294 points from recoil damage without dying`
     case 'spin':
       return `if the player spins while holding a sweet item`
+    case 'strong-style-move':
+    case 'agile-style-move':
+    case 'tower-of-waters':
+      return `by using the scroll of waters`
+    case 'tower-of-darkness':
+      return `by using the scroll of darkness`
     case 'other':
       return `by a sacrifice to the DM`
     default:
@@ -113,9 +104,11 @@ const getEvolutionInfo = (species, selectedVariety, pokemonData) => {
       variety => variety.evolvesTo[selectedVariety.nameRaw]
     )
     if (previousVariety) {
+      const previousEvolution =
+        previousVariety.evolvesTo[selectedVariety.nameRaw]
       evolutionInfo = [
         ...evolutionInfo,
-        `Evolves from ${sanitizeString(previousSpecies.name)}  ${getEvolutionText(previousVariety.evolvesTo[selectedVariety.nameRaw][0])}`,
+        `Evolves from ${sanitizeString(previousVariety.name)} ${getEvolutionText(previousEvolution)}`,
       ]
     }
   }
@@ -126,7 +119,7 @@ const getEvolutionInfo = (species, selectedVariety, pokemonData) => {
       ...map(selectedVariety.evolvesTo, (evolution, name) => {
         const evolvesTo = sanitizeString(name)
         return evolvesTo
-          ? `Evolves to ${evolvesTo} ${getEvolutionText(evolution[0])}`
+          ? `Evolves to ${evolvesTo} ${getEvolutionText(evolution)}`
           : 'Does not evolve'
       }),
     ]

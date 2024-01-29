@@ -11,7 +11,7 @@
   grid-row: span 2;
 }
 
-.name-container {
+.names-container {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -20,51 +20,8 @@
   max-width: 40ch;
 }
 
-.name-info {
-  display: flex;
-  align-items: center;
-}
-
-.trainer-label,
-.name-label {
-  margin-right: 10px;
-  font-size: 0.9em;
-  width: 7ch;
-  display: inline-block;
-}
-
-.name-input,
-.trainer-input {
-  width: 20ch;
-  font-size: 0.9em;
-  display: inline-block;
-}
-
 .save-upload-container {
   grid-column: span 3;
   display: flex;
   justify-content: flex-end;
-}
-
-.save-button img,
-.read-button img {
-  height: 15px;
-}
-
-.save-button,
-.read-button {
-  padding: 0px;
-  background-color: #efefef;
-  transition: background-color 0.3s ease;
-  margin-top: 5px;
-  margin-left: 10px;
-}
-
-.save-button:active,
-.read-button:active {
-  background-color: #b0b0b0;
-}
-.save-button:hover:not(:active),
-.read-button:hover:not(:active) {
-  background-color: #d0d0d0;
 }

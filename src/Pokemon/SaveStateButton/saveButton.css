@@ -1,0 +1,19 @@
+.save-button img {
+  height: 15px;
+}
+
+.save-button {
+  padding: 0px;
+  background-color: #efefef;
+  transition: background-color 0.3s ease;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+.save-button:active {
+  background-color: #b0b0b0;
+}
+
+.save-button:hover:not(:active) {
+  background-color: #d0d0d0;
+}

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Typeahead } from 'react-bootstrap-typeahead'
-import { usePokedex } from 'src/PokedexContext.jsx'
+import { usePokedex } from 'src/Contexts/PokedexContext'
 import { sanitizeString } from 'src/utils.js'
 import { compact } from 'lodash'
 import 'src/Pokemon/Moves/moves.css'
@@ -19,9 +19,8 @@ const getEffectString = ({
     .join(', ')
 
 const MoveSelector = ({
-  pokemon,
   onMoveSelected,
-  pokemonState: { selectedVariety },
+  pokemonState: { species, selectedVariety },
 }) => {
   const [movesList, setMovesList] = useState([])
   const [selection, setSelection] = useState()
@@ -29,7 +28,7 @@ const MoveSelector = ({
 
   useEffect(() => {
     const movesList = compact(
-      pokemon.varieties[selectedVariety].moves.map(move => {
+      species.varieties[selectedVariety].moves.map(move => {
         const foundMove = Pokedex.pokemonData.moves[move.move_id - 1]
         return {
           ...foundMove,
@@ -39,7 +38,7 @@ const MoveSelector = ({
     )
     setMovesList(movesList)
     setSelection()
-  }, [pokemon])
+  }, [species])
 
   return (
     <Typeahead
@@ -58,7 +57,7 @@ const MoveSelector = ({
   )
 }
 
-const MovesRow = ({ pokemon, pokemonState }) => {
+const MovesRow = ({ pokemonState }) => {
   const [moveData, setMoveData] = useState()
   const Pokedex = usePokedex()
 
@@ -77,18 +76,17 @@ const MovesRow = ({ pokemon, pokemonState }) => {
   const isStab = moveData
     ? checkIsStab(
         moveData.type.name,
-        pokemon.varieties[pokemonState.selectedVariety]
+        pokemonState.species.varieties[pokemonState.selectedVariety]
       )
     : false
   const totalPower = Math.floor((basePower + statPoints) * (isStab ? 1.5 : 1))
 
-  useEffect(() => setMoveData(), [pokemon])
+  useEffect(() => setMoveData(), [pokemonState])
 
   return (
     <tr>
       <td>
         <MoveSelector
-          pokemon={pokemon}
           pokemonState={pokemonState}
           onMoveSelected={onMoveSelected}
         />
@@ -116,7 +114,7 @@ const MovesRow = ({ pokemon, pokemonState }) => {
               <td>{totalPower}</td>{' '}
             </>
           )}
-          <td colspan={moveData.damage_class.name === 'status' ? 5 : 1}>
+          <td colSpan={moveData.damage_class.name === 'status' ? 5 : 1}>
             {getEffectString(moveData)}
           </td>
           <td>{moveData.pp}</td>
@@ -139,7 +137,7 @@ const MovesRow = ({ pokemon, pokemonState }) => {
   )
 }
 
-const MovesTable = ({ pokemon, pokemonState }) => {
+const MovesTable = ({ pokemonState }) => {
   return (
     <div className="moves-container">
       <h5>Moves</h5>
@@ -160,10 +158,10 @@ const MovesTable = ({ pokemon, pokemonState }) => {
           </tr>
         </thead>
         <tbody>
-          <MovesRow pokemon={pokemon} pokemonState={pokemonState} />
-          <MovesRow pokemon={pokemon} pokemonState={pokemonState} />
-          <MovesRow pokemon={pokemon} pokemonState={pokemonState} />
-          <MovesRow pokemon={pokemon} pokemonState={pokemonState} />
+          <MovesRow pokemonState={pokemonState} />
+          <MovesRow pokemonState={pokemonState} />
+          <MovesRow pokemonState={pokemonState} />
+          <MovesRow pokemonState={pokemonState} />
         </tbody>
       </table>
     </div>

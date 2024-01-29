@@ -1,49 +1,33 @@
-import { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import { map } from 'lodash'
 import { sanitizeString } from 'src/utils.js'
-import { usePokedex } from 'src/PokedexContext.jsx'
-import { useCustomConfig } from 'src/CustomConfigContext.jsx'
+import { usePokedex } from 'src/Contexts/PokedexContext'
+import { useCustomConfig } from 'src/Contexts/CustomConfigContext'
 import 'src/Pokemon/Attributes/Ability/ability.css'
 
 const PokemonAbility = ({
-  pokemon,
-  pokemonState: { selectedAbility = 0, selectedVariety },
+  pokemonState: { species, selectedAbility = 1, selectedVariety },
   onPokemonStateChange,
 }) => {
-  const abilities = pokemon.varieties[selectedVariety].abilities
+  const abilities = species.varieties[selectedVariety].abilities
   const [abilityDescription, setAbilityDescription] = useState()
   const [customConfig, setCustomConfig] = useCustomConfig()
   const Pokedex = usePokedex()
 
-  const setAbilityDescriptionFromPokedex = abilityIndex => {
-    const id = abilities[abilityIndex].id
-    setAbilityDescription(
-      Pokedex.pokemonData.abilities.find(ability => ability.id === id)
-        .effect_description[0].short_effect
-    )
-  }
-  // Pokedex.resource(pokemon.abilities[abilityIndex].ability.url).then(res =>
-  //   setAbilityDescription(
-  //     res.effect_entries.find(entry => entry.language.name === 'en')
-  //       .short_effect
-  //   )
-  // )
-
-  const updateAbilityDescription = abilityIndex => {
-    if (customConfig[abilities[abilityIndex].name]) {
-      setAbilityDescription(customConfig[abilities[abilityIndex].name])
-    } else {
-      setAbilityDescriptionFromPokedex(abilityIndex)
-    }
-  }
-
   useEffect(() => {
-    updateAbilityDescription(selectedAbility)
-  }, [pokemon, customConfig])
+    const selectedAbilityName = abilities[selectedAbility].name
+    if (customConfig[selectedAbilityName]) {
+      setAbilityDescription(customConfig[selectedAbilityName])
+    } else {
+      setAbilityDescription(
+        Pokedex.pokemonData.abilities[abilities[selectedAbility].id]
+          .effect_description
+      )
+    }
+  }, [species, customConfig, selectedAbility])
 
-  const onChange = ({ target: { value } }) => {
-    updateAbilityDescription(value)
+  const onChange = ({ target: { value } }) =>
     onPokemonStateChange({ selectedAbility: value })
-  }
 
   return (
     <div className="ability-container">
@@ -53,8 +37,8 @@ const PokemonAbility = ({
         onChange={onChange}
         value={selectedAbility}
       >
-        {abilities.map(({ name }, index) => (
-          <option value={index} key={index}>
+        {map(abilities, ({ name, slot }) => (
+          <option value={slot} key={slot}>
             {name}
           </option>
         ))}

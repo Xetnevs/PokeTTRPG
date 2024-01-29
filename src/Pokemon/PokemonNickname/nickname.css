@@ -1,0 +1,12 @@
+.nickname-label {
+  margin-right: 10px;
+  font-size: 0.9em;
+  width: 7ch;
+  display: inline-block;
+}
+
+.nickname-input {
+  width: 20ch;
+  font-size: 0.9em;
+  display: inline-block;
+}

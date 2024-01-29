@@ -1,30 +1,25 @@
 import { useState, useEffect, useContext } from 'react'
-import { usePokedex } from 'src/PokedexContext.jsx'
+import { usePokedex } from 'src/Contexts/PokedexContext'
 import getEvolutionInfo from 'src/Pokemon/Attributes/Evolution/getEvolutionInfo'
-import parseEvolution from 'src/Pokemon/Attributes/Evolution/parseEvolutions'
 import 'src/Pokemon/Attributes/Evolution/evolution.css'
 
-//Special cases: Slowpoke, Nosepass, Feebas, Kubfu, Stantler, Qwilfish,
+//Special cases: TODO: Nosepass (thunder stone), Feebas(2), Kubfu (fix mapping),
 
-const Evolution = ({ pokemon, pokemonState: { selectedVariety } }) => {
+const Evolution = ({ pokemonState: { species, selectedVariety } }) => {
   const [evolvesTo, setEvolvesTo] = useState([])
   const Pokedex = usePokedex()
 
-  useEffect(() => {
-    setEvolvesTo(
-      getEvolutionInfo(
-        pokemon,
-        pokemon.varieties[selectedVariety],
-        Pokedex.pokemonData
-      )
-    )
-    // parseEvolution(Pokedex, pokemon, pokemonState)
-    // Pokedex.resource(pokemon.species.url)
-    //   .then(species => Pokedex.resource(species.evolution_chain.url))
-    //   .then(chain =>
-    //     setEvolvesTo(getEvolutionInfo(pokemon.species.name, chain))
-    //   )
-  }, [pokemon, selectedVariety])
+  useEffect(
+    () =>
+      setEvolvesTo(
+        getEvolutionInfo(
+          species,
+          species.varieties[selectedVariety],
+          Pokedex.pokemonData
+        )
+      ),
+    [species, selectedVariety]
+  )
 
   return (
     <div className="evolution-container">

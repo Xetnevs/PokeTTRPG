@@ -1,3 +1,5 @@
+/* taken from https://codepen.io/raubaca/pen/obaZmG */
+/*
 * {
   box-sizing: border-box;
 }
@@ -6,9 +8,10 @@ body {
   place-items: center;
   min-height: 100vh;
   background: #ffcb05;
-}
+}*/
 .pokeball {
   display: block;
+  visibility: hidden;
   width: 192px;
   height: 192px;
   background: radial-gradient(
@@ -26,9 +29,16 @@ body {
     fall 0.5s ease-in-out 1s,
     shake 1.25s cubic-bezier(0.36, 0.07, 0.19, 0.97) 1.5s infinite;
 }
+
+.caught {
+  visibility: visible;
+  animation: catch 0.5s ease-in-out 0.75s forwards;
+}
+
 /* Animation */
 @keyframes shake {
   0% {
+    visibility: visible;
     transform: translateX(0) rotate(0);
   }
   20% {
@@ -49,6 +59,7 @@ body {
 }
 @keyframes fall {
   0% {
+    visibility: visible;
     transform: translateY(-200%);
   }
   60% {
@@ -63,6 +74,6 @@ body {
 }
 @keyframes catch {
   to {
-    filter: saturate(0.8) brightness(0.8);
+    filter: saturate(0.6) brightness(0.6);
   }
 }

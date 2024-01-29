@@ -2,25 +2,15 @@ import { useState, useEffect } from 'react'
 import 'src/Pokemon/Attributes/Stats/stats.css'
 
 const getMovement = speed => {
-  const base = 5
+  let comparisonNumber = 2
+  let output = 5
 
-  if (speed >= 17) {
-    return base + 4
+  while (speed >= comparisonNumber) {
+    comparisonNumber += (output - 3) * 2 - 1
+    output++
   }
 
-  if (speed >= 10) {
-    return base + 3
-  }
-
-  if (speed >= 5) {
-    return base + 2
-  }
-
-  if (speed >= 2) {
-    return base + 1
-  }
-
-  return base
+  return output
 }
 
 const getSize = ({ height }) => {
@@ -57,21 +47,22 @@ const StatBlock = ({
   </div>
 )
 
-const PokemonStats = ({ pokemon, pokemonState, onPokemonStateChange }) => {
-  const baseStats = pokemon.varieties[pokemonState.selectedVariety].base_stats
+const PokemonStats = ({ pokemonState, onPokemonStateChange }) => {
+  const baseStats =
+    pokemonState.species.varieties[pokemonState.selectedVariety].base_stats
 
   const level = pokemonState.level || 1
   const statPointsToAllocate = pokemonState.statPointsToAllocate || 0
   const stats = pokemonState.stats || baseStats
   const size =
     pokemonState.size ||
-    getSize(pokemon.varieties[pokemonState.selectedVariety])
+    getSize(pokemonState.species.varieties[pokemonState.selectedVariety])
 
   useEffect(() => {
     if (!pokemonState.stats) {
       onPokemonStateChange({ stats: baseStats })
     }
-  }, [pokemon])
+  }, [pokemonState])
 
   const onLevelChange = ({ target: { value } }) => {
     const levelToSet = Math.max(1, value)
@@ -93,13 +84,11 @@ const PokemonStats = ({ pokemon, pokemonState, onPokemonStateChange }) => {
       const diff = stats[stat] - valueInt
 
       if (statPointsToAllocate + diff >= 0 && valueInt >= baseStats[stat]) {
-        const newStats = {
-          ...stats,
-          [stat]: valueInt,
-        }
-
         onPokemonStateChange({
-          stats: newStats,
+          stats: {
+            ...stats,
+            [stat]: valueInt,
+          },
           statPointsToAllocate: statPointsToAllocate + diff,
         })
       }
