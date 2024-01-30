@@ -8,3 +8,26 @@
 span.rbt-close-content {
   display: none;
 }
+
+.party-increase-button img {
+  height: 40px;
+}
+
+.party-increase-button {
+  padding: 0px;
+  background-color: #efefef;
+  transition: background-color 0.3s ease;
+  margin-top: 5px;
+}
+
+.party-increase-button:active {
+  background-color: #b0b0b0;
+}
+.party-increase-button:hover:not(:active) {
+  background-color: #d0d0d0;
+}
+
+.party-increase-button-container {
+  width: 100%;
+  text-align: center;
+}

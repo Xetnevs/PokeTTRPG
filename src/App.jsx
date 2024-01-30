@@ -13,6 +13,7 @@ function App() {
     isPokedexLoading || isCustomConfigLoading
   )
   const [isCaught, setIsCaught] = useState(false)
+  const [partySize, setPartySize] = useState(1)
 
   useEffect(() => {
     if (!isPokedexLoading && !isCustomConfigLoading) {
@@ -27,7 +28,26 @@ function App() {
   }, [isPokedexLoading, isCustomConfigLoading])
 
   return (
-    <>{!isLoading ? <Pokemon /> : <LoadingSpinner isCaught={isCaught} />}</>
+    <>
+      {!isLoading ? (
+        <>
+          {Array.from({ length: partySize }).map(() => (
+            <Pokemon />
+          ))}
+
+          <div className="party-increase-button-container">
+            <button
+              className="party-increase-button"
+              onClick={() => setPartySize(partySize + 1)}
+            >
+              <img src="src/Assets/plus.svg" />
+            </button>
+          </div>
+        </>
+      ) : (
+        <LoadingSpinner isCaught={isCaught} />
+      )}
+    </>
   )
 }
 
