@@ -29,7 +29,7 @@ const mapPokemonData = pokemonData => ({
                 variety.name
               ),
               abilities: variety.abilities.reduce(
-                (acc, { slot, ability }) => ({
+                (acc, { slot, ability, }) => ({
                   ...acc,
                   [slot]: {
                     ...ability,
@@ -41,14 +41,14 @@ const mapPokemonData = pokemonData => ({
                 {}
               ),
               base_stats: variety.base_stats.reduce(
-                (acc, { value, stat: { name } }) => ({
+                (acc, { value, stat: { name, }, }) => ({
                   ...acc,
                   [name]: Math.floor(value / BASE_STAT_DIVIDER),
                 }),
                 {}
               ),
               sprites: variety.sprites[0].sprites,
-              types: variety.types.map(({ type }) => type.name),
+              types: variety.types.map(({ type, }) => type.name),
             },
           }),
           {}
@@ -60,16 +60,16 @@ const mapPokemonData = pokemonData => ({
   types: pokemonData.types.reduce(
     (acc, type) => ({
       ...acc,
-      [type.name]: pokemonData.types.reduce((acc, { name, efficacies }) => {
+      [type.name]: pokemonData.types.reduce((acc, { name, efficacies, }) => {
         const foundEfficancy =
           efficacies.find(eff => eff.type.name === type.name)?.damage_factor /
           100
         return foundEfficancy
           ? {
-              ...acc,
-              [name]: foundEfficancy,
-            }
-          : { ...acc }
+            ...acc,
+            [name]: foundEfficancy,
+          }
+          : { ...acc, }
       }, {}),
     }),
     {}

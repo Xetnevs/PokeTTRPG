@@ -4,11 +4,11 @@ import { useCustomConfig } from 'src/Contexts/CustomConfigContext'
 import ReactFileReader from 'react-file-reader'
 import 'src/Pokemon/UploadStateButton/uploadButton.css'
 
-const SaveUploadStateButton = ({ pokemonState, onPokemonStateChange }) => {
-  const [_, updateCustomConfig] = useCustomConfig()
+const SaveUploadStateButton = ({ pokemonState, onPokemonStateChange, }) => {
+  const [_, updateCustomConfig,] = useCustomConfig()
   return (
     <ReactFileReader
-      fileTypes={['.json']}
+      fileTypes={['.json',]}
       handleFiles={file => {
         if (file.length > 0) {
           file[0]

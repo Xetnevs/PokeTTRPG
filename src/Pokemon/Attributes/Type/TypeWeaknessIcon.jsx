@@ -15,7 +15,7 @@ const getMutliplierText = multiplier => {
   return `${multiplier}${times}`
 }
 
-const TypeWeaknessIcon = ({ type, multiplier }) => {
+const TypeWeaknessIcon = ({ type, multiplier, }) => {
   return (
     <span className="type-weakness-icon">
       <table className={`type-weakness-table ${type}`}>

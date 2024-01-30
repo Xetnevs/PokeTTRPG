@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Sprite from 'src/Pokemon/Attributes/Sprite'
 import Stats from 'src/Pokemon/Attributes/Stats'
 import Type from 'src/Pokemon/Attributes/Type'
@@ -11,17 +11,14 @@ import TrainerName from 'src/Pokemon/TrainerName'
 import SaveStateButton from 'src/Pokemon/SaveStateButton'
 import UploadStateButton from 'src/Pokemon/UploadStateButton'
 import Notes from 'src/Pokemon/Notes'
-import LoadingSpinner from 'src/LoadingSpinner'
-import { useCustomConfig } from 'src/Contexts/CustomConfigContext'
-import { isEmpty, merge } from 'lodash'
-import { sanitizeString } from 'src/utils.js'
+import { isEmpty } from 'lodash'
 import 'src/Pokemon/pokemon.css'
 
 const Pokemon = () => {
-  const [pokemonState, setPokemonState] = useState({})
+  const [pokemonState, setPokemonState,] = useState({})
 
   const onPokemonStateChange = newState =>
-    setPokemonState({ ...pokemonState, ...newState })
+    setPokemonState({ ...pokemonState, ...newState, })
 
   return (
     <div className="pokemon-card">

@@ -13,7 +13,7 @@ const getMovement = speed => {
   return output
 }
 
-const getSize = ({ height }) => {
+const getSize = ({ height, }) => {
   if (height > 60) {
     return '3x3'
   } else if (height > 20) {
@@ -49,7 +49,7 @@ const StatBlock = ({
   </div>
 )
 
-const PokemonStats = ({ pokemonState, onPokemonStateChange }) => {
+const PokemonStats = ({ pokemonState, onPokemonStateChange, }) => {
   const baseStats =
     pokemonState.species.varieties[pokemonState.selectedVariety].base_stats
   const level = pokemonState.level || 1
@@ -61,11 +61,11 @@ const PokemonStats = ({ pokemonState, onPokemonStateChange }) => {
 
   useEffect(() => {
     if (!pokemonState.stats) {
-      onPokemonStateChange({ stats: baseStats })
+      onPokemonStateChange({ stats: baseStats, })
     }
-  }, [pokemonState])
+  }, [pokemonState,])
 
-  const onLevelChange = ({ target: { value } }) => {
+  const onLevelChange = ({ target: { value, }, }) => {
     const levelToSet = Math.max(1, value)
 
     const diff = levelToSet - level
@@ -80,20 +80,20 @@ const PokemonStats = ({ pokemonState, onPokemonStateChange }) => {
 
   const onStatChange =
     stat =>
-    ({ target: { value } }) => {
-      const valueInt = parseInt(value)
-      const diff = stats[stat] - valueInt
+      ({ target: { value, }, }) => {
+        const valueInt = parseInt(value)
+        const diff = stats[stat] - valueInt
 
-      if (statPointsToAllocate + diff >= 0 && valueInt >= baseStats[stat]) {
-        onPokemonStateChange({
-          stats: {
-            ...stats,
-            [stat]: valueInt,
-          },
-          statPointsToAllocate: statPointsToAllocate + diff,
-        })
+        if (statPointsToAllocate + diff >= 0 && valueInt >= baseStats[stat]) {
+          onPokemonStateChange({
+            stats: {
+              ...stats,
+              [stat]: valueInt,
+            },
+            statPointsToAllocate: statPointsToAllocate + diff,
+          })
+        }
       }
-    }
 
   return (
     <div className="stat-container">
@@ -137,7 +137,7 @@ const PokemonStats = ({ pokemonState, onPokemonStateChange }) => {
         label="Size"
         value={size}
         type="text"
-        onChange={e => onPokemonStateChange({ size: e.target.value })}
+        onChange={e => onPokemonStateChange({ size: e.target.value, })}
       />
 
       <div className="stats-button-container">

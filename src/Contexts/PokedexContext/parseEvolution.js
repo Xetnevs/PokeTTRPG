@@ -6,7 +6,7 @@ import {
   find,
   keys,
   filter,
-  findKey,
+  findKey
 } from 'lodash'
 
 // Original Python -> https://raw.githubusercontent.com/FallenDeity/PokeLance/master/examples/evolutions.py
@@ -27,7 +27,7 @@ const FORM_FLAGS = [
   'striped',
 ]
 
-const INVALID_FORMS = ['gmax', 'cap', 'totem', 'galar-zen']
+const INVALID_FORMS = ['gmax', 'cap', 'totem', 'galar-zen',]
 
 const getVariety = (name, varieties) => {
   const variety = varieties[name]
@@ -52,7 +52,7 @@ const processEvolutionChain = chain =>
       evolutions: {
         [chain.name]: (chain.evolves_to || []).map(evo => evo.name),
       },
-      evolution_details: { [chain.name]: chain.evolution_method },
+      evolution_details: { [chain.name]: chain.evolution_method, },
     },
     ...(chain.evolves_to || []).map(evo => processEvolutionChain(evo))
   )
@@ -96,7 +96,7 @@ const convergeData = ({
   // the result of this is an object with each variety mapped to its evolution method
   // it does this by assuming the evolution details is in the order of the evolutions list
   const evolutionDetailsMapped = evolution.flatMap(evolutionName => {
-    const variety = varieties[evolutionName] || [evolutionName]
+    const variety = varieties[evolutionName] || [evolutionName,]
 
     if (variety.length === 1) {
       //Handles the case where a pokemon has multiple evolutions, and some have updated over time.
@@ -140,12 +140,12 @@ const convergeData = ({
       const variety = pokemonVarieties.slice().reverse()[
         index % pokemonVarieties.length
       ]
-      return { ...acc, [variety]: { ...detail, ...(acc[variety] || []) } }
+      return { ...acc, [variety]: { ...detail, ...(acc[variety] || []), }, }
     }, {})
 }
 
 const parseEvolutions = (pokemon, allSpecies, currentVarietyName) => {
-  const { evolutions, evolution_details } = processEvolutionChain(pokemon)
+  const { evolutions, evolution_details, } = processEvolutionChain(pokemon)
   const varieties = reduce(
     evolutions,
     (acc, _, name) => {
@@ -159,7 +159,7 @@ const parseEvolutions = (pokemon, allSpecies, currentVarietyName) => {
         .filter(item => !item.is_default && matchVariety(item.name))
         .map(item => item.name)
       return {
-        [defaultName]: [defaultName, ...formPokemon],
+        [defaultName]: [defaultName, ...formPokemon,],
         ...acc,
       }
     },

@@ -6,8 +6,8 @@ import 'src/Pokemon/Attributes/Type/type.css'
 import TypeWeaknessIcon from 'src/Pokemon/Attributes/Type/TypeWeaknessIcon.jsx'
 
 const mergeTypeChart = (chart1, chart2) => {
-  let merged = { ...chart1 }
-  for (const [key, value] of Object.entries(chart2)) {
+  let merged = { ...chart1, }
+  for (const [key, value,] of Object.entries(chart2)) {
     merged = {
       ...merged,
       [key]: value * (merged[key] || 1),
@@ -29,7 +29,7 @@ const getTypeMatchups = (typeDetails, pokemon) =>
     {}
   )
 
-const PokemonType = ({ pokemonState: { species, selectedVariety } }) => {
+const PokemonType = ({ pokemonState: { species, selectedVariety, }, }) => {
   const Pokedex = usePokedex()
   const typeDetails = getTypeMatchups(
     Pokedex.pokemonData.types,

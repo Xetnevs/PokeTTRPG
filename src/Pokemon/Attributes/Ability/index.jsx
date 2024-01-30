@@ -15,16 +15,16 @@ const getAbilityText = (customConfig, selectedAbilityId, pokemonData) => {
 }
 
 const PokemonAbility = ({
-  pokemonState: { species, selectedAbility = 1, selectedVariety },
+  pokemonState: { species, selectedAbility = 1, selectedVariety, },
   onPokemonStateChange,
 }) => {
   const abilities = species.varieties[selectedVariety].abilities
   const selectedAbilityId = abilities[selectedAbility].id
-  const [customConfig, updateCustomConfig] = useCustomConfig()
+  const [customConfig, updateCustomConfig,] = useCustomConfig()
   const Pokedex = usePokedex()
 
-  const onChange = ({ target: { value } }) =>
-    onPokemonStateChange({ selectedAbility: value })
+  const onChange = ({ target: { value, }, }) =>
+    onPokemonStateChange({ selectedAbility: value, })
 
   return (
     <div className="ability-container">
@@ -34,7 +34,7 @@ const PokemonAbility = ({
         onChange={onChange}
         value={selectedAbility}
       >
-        {map(abilities, ({ name, slot }) => (
+        {map(abilities, ({ name, slot, }) => (
           <option value={slot} key={slot}>
             {name}
           </option>

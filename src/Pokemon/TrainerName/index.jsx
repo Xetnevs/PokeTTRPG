@@ -2,7 +2,7 @@ import { sanitizeString } from 'src/utils.js'
 import 'src/Pokemon/TrainerName/trainerName.css'
 
 const TrainerName = ({
-  pokemonState: { trainer = '' },
+  pokemonState: { trainer = '', },
   onPokemonStateChange,
 }) => (
   <>
@@ -11,7 +11,7 @@ const TrainerName = ({
       <input
         className="trainer-input"
         value={trainer}
-        onChange={e => onPokemonStateChange({ trainer: e.target.value })}
+        onChange={e => onPokemonStateChange({ trainer: e.target.value, })}
       />
     </div>
   </>

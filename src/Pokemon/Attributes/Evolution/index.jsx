@@ -21,8 +21,8 @@ const getEvolveTo = (species, selectedVariety, customConfig, pokemonData) => {
   }
 }
 
-const Evolution = ({ pokemonState: { species, selectedVariety } }) => {
-  const [customConfig, updateCustomConfig] = useCustomConfig()
+const Evolution = ({ pokemonState: { species, selectedVariety, }, }) => {
+  const [customConfig, updateCustomConfig,] = useCustomConfig()
   const Pokedex = usePokedex()
 
   return (
@@ -38,7 +38,7 @@ const Evolution = ({ pokemonState: { species, selectedVariety } }) => {
         onChange={e => {
           updateCustomConfig({
             pokemon: {
-              [species.id]: { evolvesTo: e.target.value },
+              [species.id]: { evolvesTo: e.target.value, },
             },
           })
         }}
@@ -50,7 +50,7 @@ const Evolution = ({ pokemonState: { species, selectedVariety } }) => {
           onClick={() =>
             updateCustomConfig({
               pokemon: {
-                [species.id]: { evolvesTo: undefined },
+                [species.id]: { evolvesTo: undefined, },
               },
             })
           }

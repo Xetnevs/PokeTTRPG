@@ -12,21 +12,21 @@ const checkIsStab = (moveType, pokemon) =>
 
 const getEffectString = ({
   move_effect_chance,
-  move_effect: { effect_description },
+  move_effect: { effect_description, },
 }) =>
   effect_description
-    .map(({ short_effect, effect }) =>
+    .map(({ short_effect, effect, }) =>
       (effect || short_effect).replace('$effect_chance', move_effect_chance)
     )
     .join(', ')
 
 const MoveSelector = ({
   selectedMove,
-  pokemonState: { species, selectedVariety },
+  pokemonState: { species, selectedVariety, },
   onPokemonStateChange,
 }) => {
-  const [movesList, setMovesList] = useState([])
-  const [selection, setSelection] = useState([])
+  const [movesList, setMovesList,] = useState([])
+  const [selection, setSelection,] = useState([])
   const Pokedex = usePokedex()
 
   useEffect(() => {
@@ -36,8 +36,8 @@ const MoveSelector = ({
       )
     )
     setMovesList(movesList)
-    setSelection(selectedMove ? [selectedMove] : [])
-  }, [species, selectedMove])
+    setSelection(selectedMove ? [selectedMove,] : [])
+  }, [species, selectedMove,])
 
   return (
     <Typeahead
@@ -56,8 +56,8 @@ const MoveSelector = ({
   )
 }
 
-const MoveEditableCell = ({ selectedMove, moveAttribute }) => {
-  const [customConfig, updateCustomConfig] = useCustomConfig()
+const MoveEditableCell = ({ selectedMove, moveAttribute, }) => {
+  const [customConfig, updateCustomConfig,] = useCustomConfig()
   return (
     <AutoHeightTextArea
       className={`move-${moveAttribute}-text`}
@@ -79,9 +79,9 @@ const MoveEditableCell = ({ selectedMove, moveAttribute }) => {
   )
 }
 
-const MovesRow = ({ pokemonState, selectedMove, onPokemonStateChange }) => {
+const MovesRow = ({ pokemonState, selectedMove, onPokemonStateChange, }) => {
   const Pokedex = usePokedex()
-  const [customConfig, updateCustomConfig] = useCustomConfig()
+  const [customConfig, updateCustomConfig,] = useCustomConfig()
 
   const statPoints = selectedMove
     ? selectedMove.damage_class.name.toUpperCase() === 'SPECIAL'
@@ -90,16 +90,16 @@ const MovesRow = ({ pokemonState, selectedMove, onPokemonStateChange }) => {
     : 0
   const isStab = selectedMove
     ? checkIsStab(
-        selectedMove.type.name,
-        pokemonState.species.varieties[pokemonState.selectedVariety]
-      )
+      selectedMove.type.name,
+      pokemonState.species.varieties[pokemonState.selectedVariety]
+    )
     : false
   const totalPower = selectedMove
     ? Math.floor((selectedMove.power + statPoints) * (isStab ? 1.5 : 1))
     : 0
 
   //resets the selected move if the selected species changes
-  useEffect(() => onPokemonStateChange(), [pokemonState.species])
+  useEffect(() => onPokemonStateChange(), [pokemonState.species,])
 
   return (
     <tr>
@@ -188,14 +188,14 @@ const MovesRow = ({ pokemonState, selectedMove, onPokemonStateChange }) => {
   )
 }
 
-const MovesTable = ({ pokemonState, onPokemonStateChange }) => {
+const MovesTable = ({ pokemonState, onPokemonStateChange, }) => {
   const wrappedOnStateChange = index => state => {
-    const selectedMoves = [...(pokemonState.selectedMoves || [])]
+    const selectedMoves = [...(pokemonState.selectedMoves || []),]
 
     if (state && state.length) {
       selectedMoves[index] = state[0]
     }
-    onPokemonStateChange({ selectedMoves })
+    onPokemonStateChange({ selectedMoves, })
   }
 
   return (

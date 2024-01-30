@@ -8,20 +8,20 @@ import 'react-bootstrap-typeahead/css/Typeahead.css'
 
 //TODO: change selectedVariety to selectedVarietyId
 const PokemonSelector = ({
-  pokemonState: { species, selectedVariety },
+  pokemonState: { species, selectedVariety, },
   onPokemonStateChange,
 }) => {
   const Pokedex = usePokedex()
-  const [selected, setSelected] = useState([])
-  const [selectedVariety2, setSelectedVariety] = useState([])
+  const [selected, setSelected,] = useState([])
+  const [selectedVariety2, setSelectedVariety,] = useState([])
   // const [pokemonList, setPokemonList] = useState()
 
   useEffect(() => {
     if (species) {
-      setSelected([species])
-      setSelectedVariety([species.varieties[selectedVariety]])
+      setSelected([species,])
+      setSelectedVariety([species.varieties[selectedVariety],])
     }
-  }, [species, selectedVariety])
+  }, [species, selectedVariety,])
 
   //TODO: Remove
   console.log(Pokedex.pokemonData)

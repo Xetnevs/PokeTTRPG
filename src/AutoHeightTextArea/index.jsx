@@ -14,7 +14,7 @@ const AutoHeightTextArea = ({ children, ...props }) => {
       textareaRef.current.style.height = '25px'
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
     }
-  }, [props.value])
+  }, [props.value,])
 
   return (
     <textarea ref={textareaRef} {...props}>

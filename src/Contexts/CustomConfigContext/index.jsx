@@ -4,7 +4,7 @@ import React, {
   useEffect,
   useCallback,
   useMemo,
-  useReducer,
+  useReducer
 } from 'react'
 import { assign, isEqual } from 'lodash'
 import pokeStore from 'src/pokeStore'
@@ -15,9 +15,9 @@ export const useCustomConfig = () => {
   return useContext(CustomConfigContext)
 }
 
-const CustomConfigContextComponent = ({ children }) => {
-  const [customConfig, setCustomConfig] = useState({})
-  const [isLoading, setIsLoading] = useState(true)
+const CustomConfigContextComponent = ({ children, }) => {
+  const [customConfig, setCustomConfig,] = useState({})
+  const [isLoading, setIsLoading,] = useState(true)
 
   useEffect(() => {
     pokeStore
@@ -29,15 +29,15 @@ const CustomConfigContextComponent = ({ children }) => {
   const setCustomConfigWrapped = useCallback(
     value => {
       const merged = assign(customConfig, value)
-      setCustomConfig({ ...merged })
+      setCustomConfig({ ...merged, })
       pokeStore.setItem('pokettrpg-custom-config', merged)
     },
-    [customConfig]
+    [customConfig,]
   )
 
   return (
     <CustomConfigContext.Provider
-      value={[{ ...customConfig, isLoading }, setCustomConfigWrapped]}
+      value={[{ ...customConfig, isLoading, }, setCustomConfigWrapped,]}
     >
       {children}
     </CustomConfigContext.Provider>

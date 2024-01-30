@@ -31,7 +31,7 @@ const mapToDropdownItems = onSelect => (acc, value, key) => {
 }
 
 const PokemonSprite = ({
-  pokemonState: { species, sprite, selectedVariety },
+  pokemonState: { species, sprite, selectedVariety, },
   onPokemonStateChange,
 }) => {
   const officialArt =
@@ -54,7 +54,7 @@ const PokemonSprite = ({
   return (
     <div className="sprite-container">
       <Dropdown items={items} containerWidth="300px">
-        {({ isOpen, onClick }) => (
+        {({ isOpen, onClick, }) => (
           <img
             className="pokemon-sprite"
             onClick={onClick}

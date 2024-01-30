@@ -26,7 +26,7 @@ const hasExpired = expires => {
 }
 
 //local version of localforage-cache
-export const setItemWithCache = async (
+export const setItemWithCache = async(
   key,
   value,
   expires = defaultExpiration + Date.now()
@@ -69,7 +69,7 @@ export const removeItem = async key => {
   const removeValue = pokettrpgStore.removeItem(key)
   const removeExpiration = pokettrpgStore.removeItem(expirationKey)
 
-  return Promise.all([removeValue, removeExpiration])
+  return Promise.all([removeValue, removeExpiration,])
 }
 
 export default pokettrpgStore
