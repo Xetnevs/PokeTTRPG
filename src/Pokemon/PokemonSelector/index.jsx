@@ -6,6 +6,7 @@ import { sanitizeString } from 'src/utils.js'
 import 'src/Pokemon/PokemonSelector/pokemonSelector.css'
 import 'react-bootstrap-typeahead/css/Typeahead.css'
 
+//TODO: change selectedVariety to selectedVarietyId
 const PokemonSelector = ({
   pokemonState: { species, selectedVariety },
   onPokemonStateChange,

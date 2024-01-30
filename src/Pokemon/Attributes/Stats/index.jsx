@@ -30,6 +30,7 @@ const StatBlock = ({
   onChange,
   children,
   type = 'number',
+  max = 1000,
 }) => (
   <div
     className={`stat-group${singleColumn ? ' single-column' : ''}${children ? ' double-row' : ''}`}
@@ -42,6 +43,7 @@ const StatBlock = ({
       step="1"
       onChange={onChange}
       disabled={disabled}
+      max={max}
     />
     {children && <span className="stat-info">{children}</span>}
   </div>
@@ -50,7 +52,6 @@ const StatBlock = ({
 const PokemonStats = ({ pokemonState, onPokemonStateChange }) => {
   const baseStats =
     pokemonState.species.varieties[pokemonState.selectedVariety].base_stats
-
   const level = pokemonState.level || 1
   const statPointsToAllocate = pokemonState.statPointsToAllocate || 0
   const stats = pokemonState.stats || baseStats
@@ -96,7 +97,7 @@ const PokemonStats = ({ pokemonState, onPokemonStateChange }) => {
 
   return (
     <div className="stat-container">
-      <StatBlock label="Level" value={level} onChange={onLevelChange}>
+      <StatBlock label="Level" value={level} onChange={onLevelChange} max={100}>
         {statPointsToAllocate} Points to Allocate
       </StatBlock>
       <StatBlock
@@ -138,6 +139,24 @@ const PokemonStats = ({ pokemonState, onPokemonStateChange }) => {
         type="text"
         onChange={e => onPokemonStateChange({ size: e.target.value })}
       />
+
+      <div className="stats-button-container">
+        <button
+          className="stats-revert-button"
+          onClick={() =>
+            onPokemonStateChange({
+              level: 1,
+              statPointsToAllocate: 0,
+              stats: baseStats,
+              size: getSize(
+                pokemonState.species.varieties[pokemonState.selectedVariety]
+              ),
+            })
+          }
+        >
+          <img src="src/Assets/undo.png" />
+        </button>
+      </div>
     </div>
   )
 }

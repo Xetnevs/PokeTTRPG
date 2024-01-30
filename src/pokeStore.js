@@ -7,6 +7,24 @@ const pokettrpgStore = localForage.createInstance({
   name: 'pokettrpg',
 })
 
+const getExpirationKey = key => {
+  const hash = sha256.update(key).hex().substring(0, 8)
+
+  return `${key}_expires_${hash}`
+}
+
+const hasExpired = expires => {
+  if (expires === Infinity) {
+    return false
+  }
+
+  if (isNaN(expires)) {
+    return false
+  }
+
+  return expires < Date.now()
+}
+
 //local version of localforage-cache
 export const setItemWithCache = async (
   key,
@@ -35,10 +53,10 @@ export const getItemFromCache = async key => {
     return pokettrpgStore.getItem(key)
   }
 
-  const hasExpired = hasExpired(expires)
+  const hasCacheExpired = hasExpired(expires)
 
   // If the item has expired, remove it from the cache
-  if (hasExpired) {
+  if (hasCacheExpired) {
     await pokettrpgStore.removeItem(key)
     return null
   }
@@ -52,24 +70,6 @@ export const removeItem = async key => {
   const removeExpiration = pokettrpgStore.removeItem(expirationKey)
 
   return Promise.all([removeValue, removeExpiration])
-}
-
-const getExpirationKey = key => {
-  const hash = sha256.update(key).hex().substring(0, 8)
-
-  return `${key}_expires_${hash}`
-}
-
-const hasExpired = expires => {
-  if (expires === Infinity) {
-    return false
-  }
-
-  if (isNaN(expires)) {
-    return false
-  }
-
-  return expires < Date.now()
 }
 
 export default pokettrpgStore

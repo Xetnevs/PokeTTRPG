@@ -3,6 +3,8 @@ import { Typeahead } from 'react-bootstrap-typeahead'
 import { usePokedex } from 'src/Contexts/PokedexContext'
 import { sanitizeString } from 'src/utils.js'
 import { compact } from 'lodash'
+import { useCustomConfig } from 'src/Contexts/CustomConfigContext'
+import AutoHeightTextArea from 'src/AutoHeightTextArea'
 import 'src/Pokemon/Moves/moves.css'
 
 const checkIsStab = (moveType, pokemon) =>
@@ -13,32 +15,29 @@ const getEffectString = ({
   move_effect: { effect_description },
 }) =>
   effect_description
-    .map(({ short_effect }) =>
-      short_effect.replace('$effect_chance', move_effect_chance)
+    .map(({ short_effect, effect }) =>
+      (effect || short_effect).replace('$effect_chance', move_effect_chance)
     )
     .join(', ')
 
 const MoveSelector = ({
-  onMoveSelected,
+  selectedMove,
   pokemonState: { species, selectedVariety },
+  onPokemonStateChange,
 }) => {
   const [movesList, setMovesList] = useState([])
-  const [selection, setSelection] = useState()
+  const [selection, setSelection] = useState([])
   const Pokedex = usePokedex()
 
   useEffect(() => {
     const movesList = compact(
-      species.varieties[selectedVariety].moves.map(move => {
-        const foundMove = Pokedex.pokemonData.moves[move.move_id - 1]
-        return {
-          ...foundMove,
-          name: sanitizeString(foundMove.name),
-        }
-      })
+      species.varieties[selectedVariety].moves.map(
+        move => Pokedex.pokemonData.moves[move.move_id]
+      )
     )
     setMovesList(movesList)
-    setSelection()
-  }, [species])
+    setSelection(selectedMove ? [selectedMove] : [])
+  }, [species, selectedMove])
 
   return (
     <Typeahead
@@ -48,96 +47,157 @@ const MoveSelector = ({
       clearButton
       onChange={move => {
         setSelection(move)
-        onMoveSelected(move)
+        onPokemonStateChange(move)
       }}
       options={movesList || []}
       placeholder="Show me your moves"
-      selected={selection}
+      selected={selection || []}
     />
   )
 }
 
-const MovesRow = ({ pokemonState }) => {
-  const [moveData, setMoveData] = useState()
+const MoveEditableCell = ({ selectedMove, moveAttribute }) => {
+  const [customConfig, updateCustomConfig] = useCustomConfig()
+  return (
+    <AutoHeightTextArea
+      className={`move-${moveAttribute}-text`}
+      value={
+        customConfig.moves?.[selectedMove.id]?.[moveAttribute] ||
+        selectedMove[moveAttribute] ||
+        ''
+      }
+      onChange={e => {
+        updateCustomConfig({
+          moves: {
+            [selectedMove.id]: {
+              [moveAttribute]: e.target.value,
+            },
+          },
+        })
+      }}
+    />
+  )
+}
+
+const MovesRow = ({ pokemonState, selectedMove, onPokemonStateChange }) => {
   const Pokedex = usePokedex()
+  const [customConfig, updateCustomConfig] = useCustomConfig()
 
-  const onMoveSelected = selectedMove => {
-    if (selectedMove.length > 0) {
-      setMoveData(selectedMove[0])
-    }
-  }
-
-  const basePower = moveData ? Math.floor(moveData.power / 10) : 0
-  const statPoints = moveData
-    ? moveData.damage_class.name.toUpperCase() === 'SPECIAL'
+  const statPoints = selectedMove
+    ? selectedMove.damage_class.name.toUpperCase() === 'SPECIAL'
       ? pokemonState.stats['special-attack']
       : pokemonState.stats.attack
     : 0
-  const isStab = moveData
+  const isStab = selectedMove
     ? checkIsStab(
-        moveData.type.name,
+        selectedMove.type.name,
         pokemonState.species.varieties[pokemonState.selectedVariety]
       )
     : false
-  const totalPower = Math.floor((basePower + statPoints) * (isStab ? 1.5 : 1))
+  const totalPower = selectedMove
+    ? Math.floor((selectedMove.power + statPoints) * (isStab ? 1.5 : 1))
+    : 0
 
-  useEffect(() => setMoveData(), [pokemonState])
+  //resets the selected move if the selected species changes
+  useEffect(() => onPokemonStateChange(), [pokemonState.species])
 
   return (
     <tr>
       <td>
         <MoveSelector
           pokemonState={pokemonState}
-          onMoveSelected={onMoveSelected}
+          onPokemonStateChange={onPokemonStateChange}
+          selectedMove={selectedMove}
         />
       </td>
-      {moveData ? (
+      {selectedMove ? (
         <>
           <td>
             <img
               className="type-icon"
-              src={`/src/assets/types/${moveData.type.name}.png`}
-              key={moveData.type.name}
+              src={`/src/assets/types/${selectedMove.type.name}.png`}
+              key={selectedMove.type.name}
             />
           </td>
-          <td>{sanitizeString(moveData.damage_class.name)}</td>
-          <td></td>
+          <td>{sanitizeString(selectedMove.damage_class.name)}</td>
           <td>
-            {moveData.accuracy}
-            {moveData.accuracy && '%'}
+            <MoveEditableCell
+              selectedMove={selectedMove}
+              moveAttribute="range"
+            />
           </td>
-          {moveData.damage_class.name !== 'status' && (
+          <td>
+            <MoveEditableCell
+              selectedMove={selectedMove}
+              moveAttribute="accuracy"
+            />
+          </td>
+          {selectedMove.damage_class.name !== 'status' && (
             <>
-              <td>{basePower}</td>
+              <td>
+                <MoveEditableCell
+                  selectedMove={selectedMove}
+                  moveAttribute="power"
+                />
+              </td>
               <td>{statPoints}</td>
               <td>{isStab ? '✅' : '❌'}</td>
-              <td>{totalPower}</td>{' '}
+              <td>{totalPower}</td>
             </>
           )}
-          <td colSpan={moveData.damage_class.name === 'status' ? 5 : 1}>
-            {getEffectString(moveData)}
+          <td colSpan={selectedMove.damage_class.name === 'status' ? 5 : 1}>
+            <MoveEditableCell
+              selectedMove={selectedMove}
+              moveAttribute="moveDescription"
+            />
           </td>
-          <td>{moveData.pp}</td>
+          <td>
+            <MoveEditableCell selectedMove={selectedMove} moveAttribute="pp" />
+          </td>
+          <td>
+            <button
+              className="moves-revert-button"
+              onClick={() =>
+                updateCustomConfig({
+                  moves: {
+                    [selectedMove.id]: undefined,
+                  },
+                })
+              }
+            >
+              <img src="src/Assets/undo.png" />
+            </button>
+          </td>
         </>
       ) : (
         <>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
         </>
       )}
     </tr>
   )
 }
 
-const MovesTable = ({ pokemonState }) => {
+const MovesTable = ({ pokemonState, onPokemonStateChange }) => {
+  const wrappedOnStateChange = index => state => {
+    const selectedMoves = [...(pokemonState.selectedMoves || [])]
+
+    if (state && state.length) {
+      selectedMoves[index] = state[0]
+    }
+    onPokemonStateChange({ selectedMoves })
+  }
+
   return (
     <div className="moves-container">
       <h5>Moves</h5>
@@ -155,13 +215,30 @@ const MovesTable = ({ pokemonState }) => {
             <th>= Total</th>
             <th>Move Bonus</th>
             <th>PP</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
-          <MovesRow pokemonState={pokemonState} />
-          <MovesRow pokemonState={pokemonState} />
-          <MovesRow pokemonState={pokemonState} />
-          <MovesRow pokemonState={pokemonState} />
+          <MovesRow
+            pokemonState={pokemonState}
+            selectedMove={pokemonState.selectedMoves?.[0]}
+            onPokemonStateChange={wrappedOnStateChange(0)}
+          />
+          <MovesRow
+            pokemonState={pokemonState}
+            selectedMove={pokemonState.selectedMoves?.[1]}
+            onPokemonStateChange={wrappedOnStateChange(1)}
+          />
+          <MovesRow
+            pokemonState={pokemonState}
+            selectedMove={pokemonState.selectedMoves?.[2]}
+            onPokemonStateChange={wrappedOnStateChange(2)}
+          />
+          <MovesRow
+            pokemonState={pokemonState}
+            selectedMove={pokemonState.selectedMoves?.[3]}
+            onPokemonStateChange={wrappedOnStateChange(3)}
+          />
         </tbody>
       </table>
     </div>

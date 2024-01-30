@@ -13,23 +13,27 @@
 }
 
 .moves-table tbody td {
-  border: 2px black dashed;
+  border: 1px black dashed;
   border-top: none;
   font-size: 0.7em;
 }
 
 .moves-table-header th {
-  border: 2px white dashed;
+  border: 1px white dashed;
   border-top: none;
   border-bottom: none;
 }
 
 .moves-table-header th:first-child {
-  border-left: 2px black solid;
+  border-left: 1px black solid;
 }
 
 .moves-table-header th:last-child {
-  border-right: 2px black solid;
+  border-right: 1px black solid;
+}
+
+.move-input {
+  max-width: 20ch;
 }
 
 .move-input input {
@@ -37,4 +41,48 @@
 }
 .move-input .dropdown-item {
   font-size: 0.8em;
+}
+
+.moves-table textarea {
+  resize: both;
+}
+
+.move-moveDescription-text {
+  width: 100%;
+}
+
+.move-range-text {
+  width: 7ch;
+}
+
+.move-accuracy-text {
+  width: 6ch;
+}
+
+.move-power-text,
+.move-pp-text {
+  width: 3ch;
+}
+
+.moves-table .type-icon {
+  margin-bottom: 0px;
+  height: 15px;
+}
+
+.moves-revert-button img {
+  height: 15px;
+}
+
+.moves-revert-button {
+  padding: 0px;
+  background-color: #efefef;
+  transition: background-color 0.3s ease;
+  margin-top: 5px;
+}
+
+.moves-revert-button:active {
+  background-color: #b0b0b0;
+}
+.moves-revert-button:hover:not(:active) {
+  background-color: #d0d0d0;
 }

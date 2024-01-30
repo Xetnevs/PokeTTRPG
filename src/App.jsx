@@ -7,7 +7,8 @@ import 'src/App.css'
 
 function App() {
   const { isLoading: isPokedexLoading } = usePokedex()
-  const [{ isLoading: isCustomConfigLoading }, _] = useCustomConfig()
+  const [{ isLoading: isCustomConfigLoading }, updateCustomConfig] =
+    useCustomConfig()
   const [isLoading, setIsLoading] = useState(
     isPokedexLoading || isCustomConfigLoading
   )

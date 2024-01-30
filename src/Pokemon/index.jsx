@@ -12,12 +12,12 @@ import SaveStateButton from 'src/Pokemon/SaveStateButton'
 import UploadStateButton from 'src/Pokemon/UploadStateButton'
 import Notes from 'src/Pokemon/Notes'
 import LoadingSpinner from 'src/LoadingSpinner'
-import { isEmpty } from 'lodash'
+import { useCustomConfig } from 'src/Contexts/CustomConfigContext'
+import { isEmpty, merge } from 'lodash'
 import { sanitizeString } from 'src/utils.js'
 import 'src/Pokemon/pokemon.css'
 
 const Pokemon = () => {
-  const [pokemonData, setPokemonData] = useState({})
   const [pokemonState, setPokemonState] = useState({})
 
   const onPokemonStateChange = newState =>
@@ -72,7 +72,6 @@ const Pokemon = () => {
           />
         </>
       )}
-
       <div className="save-upload-container">
         <SaveStateButton
           pokemonState={pokemonState}

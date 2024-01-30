@@ -3,28 +3,25 @@ import { map } from 'lodash'
 import { sanitizeString } from 'src/utils.js'
 import { usePokedex } from 'src/Contexts/PokedexContext'
 import { useCustomConfig } from 'src/Contexts/CustomConfigContext'
+import AutoHeightTextArea from 'src/AutoHeightTextArea'
 import 'src/Pokemon/Attributes/Ability/ability.css'
+
+const getAbilityText = (customConfig, selectedAbilityId, pokemonData) => {
+  if (customConfig.abilities?.[selectedAbilityId]) {
+    return customConfig.abilities?.[selectedAbilityId]
+  } else {
+    return pokemonData.abilities[selectedAbilityId].effect_description
+  }
+}
 
 const PokemonAbility = ({
   pokemonState: { species, selectedAbility = 1, selectedVariety },
   onPokemonStateChange,
 }) => {
   const abilities = species.varieties[selectedVariety].abilities
-  const [abilityDescription, setAbilityDescription] = useState()
-  const [customConfig, setCustomConfig] = useCustomConfig()
+  const selectedAbilityId = abilities[selectedAbility].id
+  const [customConfig, updateCustomConfig] = useCustomConfig()
   const Pokedex = usePokedex()
-
-  useEffect(() => {
-    const selectedAbilityName = abilities[selectedAbility].name
-    if (customConfig[selectedAbilityName]) {
-      setAbilityDescription(customConfig[selectedAbilityName])
-    } else {
-      setAbilityDescription(
-        Pokedex.pokemonData.abilities[abilities[selectedAbility].id]
-          .effect_description
-      )
-    }
-  }, [species, customConfig, selectedAbility])
 
   const onChange = ({ target: { value } }) =>
     onPokemonStateChange({ selectedAbility: value })
@@ -43,13 +40,18 @@ const PokemonAbility = ({
           </option>
         ))}
       </select>
-      <textarea
+      <AutoHeightTextArea
         className="ability-text"
-        value={abilityDescription}
+        value={getAbilityText(
+          customConfig,
+          selectedAbilityId,
+          Pokedex.pokemonData
+        )}
         onChange={e => {
-          setCustomConfig({
-            ...customConfig,
-            [abilities[selectedAbility].name]: e.target.value,
+          updateCustomConfig({
+            abilities: {
+              [selectedAbilityId]: e.target.value,
+            },
           })
         }}
       />
@@ -57,9 +59,10 @@ const PokemonAbility = ({
         <button
           className="ability-revert-button"
           onClick={() =>
-            setCustomConfig({
-              ...customConfig,
-              [abilities[selectedAbility].name]: undefined,
+            updateCustomConfig({
+              abilities: {
+                [selectedAbilityId]: undefined,
+              },
             })
           }
         >

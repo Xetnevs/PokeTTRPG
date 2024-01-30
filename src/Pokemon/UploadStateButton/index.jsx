@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
+import { merge } from 'lodash'
 import { useCustomConfig } from 'src/Contexts/CustomConfigContext'
 import ReactFileReader from 'react-file-reader'
 import 'src/Pokemon/UploadStateButton/uploadButton.css'
 
 const SaveUploadStateButton = ({ pokemonState, onPokemonStateChange }) => {
-  const [customConfig, setCustomConfig] = useCustomConfig()
+  const [_, updateCustomConfig] = useCustomConfig()
   return (
     <ReactFileReader
       fileTypes={['.json']}
@@ -15,7 +16,7 @@ const SaveUploadStateButton = ({ pokemonState, onPokemonStateChange }) => {
             .then(JSON.parse)
             .then(res => {
               onPokemonStateChange(res.pokemonState)
-              setCustomConfig(res.customConfig)
+              updateCustomConfig(res.customConfig)
             })
         }
       }}

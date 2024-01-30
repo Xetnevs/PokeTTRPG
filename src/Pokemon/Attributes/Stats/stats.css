@@ -22,7 +22,7 @@
 .stat-input {
   padding: 8px;
   margin-bottom: 5px;
-  width: 7ch;
+  width: 7.5ch;
   font-size: 0.8em;
 }
 
@@ -39,4 +39,27 @@
 
 .double-row {
   grid-row: span 2;
+}
+
+.stats-revert-button img {
+  height: 15px;
+}
+
+.stats-revert-button {
+  padding: 0px;
+  background-color: #efefef;
+  transition: background-color 0.3s ease;
+  margin-top: 5px;
+}
+
+.stats-revert-button:active {
+  background-color: #b0b0b0;
+}
+.stats-revert-button:hover:not(:active) {
+  background-color: #d0d0d0;
+}
+
+.stats-button-container {
+  width: 100%;
+  text-align: right;
 }

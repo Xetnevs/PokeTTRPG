@@ -1,31 +1,9 @@
 import { sanitizeString } from 'src/utils.js'
 import { isEqual } from 'lodash'
 import parseEvolution from 'src/Contexts/PokedexContext/parseEvolution'
-// import parseEvolution2 from 'src/Contexts/PokedexContext/parseEvolution2'
-
-// const getEvolution = (species, allSpecies, varietyName) => {
-//   const data1 = parseEvolution(
-//                 species,
-//                 allSpecies,
-//                 varietyName
-//               )
-//   const data2 = parseEvolution2(
-//                 species,
-//                 allSpecies,
-//                 varietyName
-//               )
-
-//   if (!isEqual(data1, data2)) {
-//     console.log('warning mismatch')
-//     console.log(data1)
-//     console.log(data2)
-//     console.log('-----')
-//   }
-
-//   return data1
-// }
 
 const BASE_STAT_DIVIDER = 20
+const MOVE_POWER_DIVIDER = 10
 
 const mapPokemonData = pokemonData => ({
   ...pokemonData,
@@ -96,8 +74,8 @@ const mapPokemonData = pokemonData => ({
     }),
     {}
   ),
-  abilities: pokemonData.abilities.reduce((acc, ability) => {
-    return {
+  abilities: pokemonData.abilities.reduce(
+    (acc, ability) => ({
       ...acc,
       [ability.id]: {
         ...ability,
@@ -108,8 +86,37 @@ const mapPokemonData = pokemonData => ({
           ability.flavor_texts?.[0]?.flavor_text ||
           '',
       },
-    }
-  }, {}),
+    }),
+    {}
+  ),
+  moves: pokemonData.moves.reduce(
+    (acc, move) => ({
+      ...acc,
+      [move.id]: {
+        ...move,
+        name: sanitizeString(move.name),
+        nameRaw: move.name,
+        accuracy: move.accuracy ? `${move.accuracy}%` : '',
+        power: move.power ? Math.floor(move.power / MOVE_POWER_DIVIDER) : 0,
+        moveDescription: getMoveDescription(
+          move.move_effect,
+          move.move_effect_chance
+        ),
+      },
+    }),
+    {}
+  ),
 })
+
+const getMoveDescription = (move_effect, move_effect_chance) => {
+  const effect = move_effect?.effect_description?.[0]?.effect || ''
+  const short_effect = move_effect?.effect_description?.[0]?.short_effect || ''
+
+  if (effect.length < short_effect.length) {
+    return effect.replace('$effect_chance', move_effect_chance)
+  }
+
+  return short_effect.replace('$effect_chance', move_effect_chance)
+}
 
 export default mapPokemonData

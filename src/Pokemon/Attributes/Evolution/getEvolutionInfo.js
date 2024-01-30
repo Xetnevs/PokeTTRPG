@@ -2,7 +2,7 @@ import { sanitizeString } from 'src/utils.js'
 import { isEmpty, map, find } from 'lodash'
 
 const getEvolutionTriggerText = details => {
-  switch (details.evolution_trigger.name) {
+  switch (details?.evolution_trigger.name) {
     case 'level-up':
       return `when leveled up`
     case 'trade':
@@ -35,7 +35,7 @@ const getEvolutionTriggerText = details => {
   }
 }
 
-const getEvolutionConditionText = details => {
+const getEvolutionConditionText = (details = {}) => {
   const conditionText = []
   if (details.min_level) {
     conditionText.push(`to level ${details.min_level}`)
@@ -108,7 +108,7 @@ const getEvolutionInfo = (species, selectedVariety, pokemonData) => {
         previousVariety.evolvesTo[selectedVariety.nameRaw]
       evolutionInfo = [
         ...evolutionInfo,
-        `Evolves from ${sanitizeString(previousVariety.name)} ${getEvolutionText(previousEvolution)}`,
+        `- Evolves from ${sanitizeString(previousVariety.name)} ${getEvolutionText(previousEvolution)}`,
       ]
     }
   }
@@ -119,14 +119,14 @@ const getEvolutionInfo = (species, selectedVariety, pokemonData) => {
       ...map(selectedVariety.evolvesTo, (evolution, name) => {
         const evolvesTo = sanitizeString(name)
         return evolvesTo
-          ? `Evolves to ${evolvesTo} ${getEvolutionText(evolution)}`
-          : 'Does not evolve'
+          ? `- Evolves to ${evolvesTo} ${getEvolutionText(evolution)}`
+          : '- Does not evolve'
       }),
     ]
   } else {
-    evolutionInfo = [...evolutionInfo, 'Does not evolve']
+    evolutionInfo = [...evolutionInfo, '- Does not evolve']
   }
-  return evolutionInfo
+  return evolutionInfo.join('\n')
 }
 
 export default getEvolutionInfo

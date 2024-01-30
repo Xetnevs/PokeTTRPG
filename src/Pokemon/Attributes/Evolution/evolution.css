@@ -1,9 +1,32 @@
 .evolution-container {
-  font-weight: bold;
   text-align: left;
   font-size: 0.8em;
 }
 
 .evolution-text {
+  width: 100%;
   margin-bottom: 0.5em;
+}
+
+.evolution-revert-button img {
+  height: 15px;
+}
+
+.evolution-revert-button {
+  padding: 0px;
+  background-color: #efefef;
+  transition: background-color 0.3s ease;
+  margin-top: 5px;
+}
+
+.evolution-revert-button:active {
+  background-color: #b0b0b0;
+}
+.evolution-revert-button:hover:not(:active) {
+  background-color: #d0d0d0;
+}
+
+.evolution-button-container {
+  width: 100%;
+  text-align: right;
 }
