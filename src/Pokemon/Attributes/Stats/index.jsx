@@ -1,6 +1,6 @@
 import 'src/Pokemon/Attributes/Stats/stats.css'
 
-import { useEffect } from 'react'
+import PropTypes from 'prop-types'
 import StatBlock from 'src/Pokemon/Attributes/Stats/StatBlock'
 
 const getMovement = speed => {
@@ -33,12 +33,6 @@ const PokemonStats = ({ pokemonState, onPokemonStateChange }) => {
   const size =
     pokemonState.size ||
     getSize(pokemonState.species.varieties[pokemonState.selectedVariety])
-
-  useEffect(() => {
-    if (!pokemonState.stats) {
-      onPokemonStateChange({ stats: baseStats })
-    }
-  }, [pokemonState])
 
   const onLevelChange = ({ target: { value } }) => {
     const levelToSet = Math.max(1, value)
@@ -136,6 +130,31 @@ const PokemonStats = ({ pokemonState, onPokemonStateChange }) => {
   )
 }
 
-PokemonStats.propTypes = {}
+const statsShape = PropTypes.shape({
+  speed: PropTypes.number.isRequired,
+  hp: PropTypes.number.isRequired,
+  attack: PropTypes.number.isRequired,
+  defense: PropTypes.number.isRequired,
+  'special-attack': PropTypes.number.isRequired,
+  'special-defense': PropTypes.number.isRequired,
+})
+
+PokemonStats.propTypes = {
+  pokemonState: PropTypes.shape({
+    selectedVariety: PropTypes.number,
+    level: PropTypes.number,
+    statPointsToAllocate: PropTypes.number,
+    size: PropTypes.string,
+    stats: statsShape,
+    species: PropTypes.shape({
+      varieties: PropTypes.objectOf(
+        PropTypes.shape({
+          base_stats: statsShape,
+        })
+      ).isRequired,
+    }).isRequired,
+  }).isRequired,
+  onPokemonStateChange: PropTypes.func.isRequired,
+}
 
 export default PokemonStats

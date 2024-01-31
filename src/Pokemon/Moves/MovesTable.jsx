@@ -1,13 +1,13 @@
 import 'src/Pokemon/Moves/moves.css'
 
-import PropTypes from 'propTypes'
-import MovesRow from 'src/Pokemon/Attributes/Moves/MovesRow'
+import PropTypes from 'prop-types'
+import MovesRow from 'src/Pokemon/Moves/MovesRow.jsx'
 
 const MovesTable = ({ pokemonState, onPokemonStateChange }) => {
   const wrappedOnStateChange = index => state => {
     const selectedMoves = [...(pokemonState.selectedMoves || [])]
 
-    if (state && state.length) {
+    if (state?.length) {
       selectedMoves[index] = state[0]
     }
     onPokemonStateChange({ selectedMoves })
@@ -62,7 +62,7 @@ const MovesTable = ({ pokemonState, onPokemonStateChange }) => {
 
 MovesTable.propTypes = {
   pokemonState: PropTypes.object.isRequired,
-  'pokemonState.selectedMoves': PropTypes.array,
+  'pokemonState.selectedMoves': PropTypes.arrayOf(PropTypes.object),
   onPokemonStateChange: PropTypes.func.isRequired,
 }
 

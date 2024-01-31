@@ -1,5 +1,6 @@
 import 'src/Pokemon/Attributes/Evolution/evolution.css'
 
+import PropTypes from 'prop-types'
 import AutoHeightTextArea from 'src/AutoHeightTextArea'
 import { useCustomConfig } from 'src/Contexts/CustomConfigContext'
 import { usePokedex } from 'src/Contexts/PokedexContext'
@@ -59,6 +60,16 @@ const Evolution = ({ pokemonState: { species, selectedVariety } }) => {
       </div>
     </div>
   )
+}
+
+Evolution.propTypes = {
+  pokemonState: PropTypes.shape({
+    species: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      varieties: PropTypes.object.isRequired,
+    }).isRequired,
+    selectedVariety: PropTypes.number.isRequired,
+  }).isRequired,
 }
 
 export default Evolution

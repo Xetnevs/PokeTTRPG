@@ -1,6 +1,7 @@
 import 'src/Pokemon/Attributes/Ability/ability.css'
 
 import { map } from 'lodash'
+import PropTypes from 'prop-types'
 import AutoHeightTextArea from 'src/AutoHeightTextArea'
 import { useCustomConfig } from 'src/Contexts/CustomConfigContext'
 import { usePokedex } from 'src/Contexts/PokedexContext'
@@ -70,6 +71,25 @@ const PokemonAbility = ({
       </div>
     </div>
   )
+}
+PokemonAbility.propTypes = {
+  pokemonState: PropTypes.shape({
+    species: PropTypes.shape({
+      varieties: PropTypes.objectOf(
+        PropTypes.shape({
+          abilities: PropTypes.objectOf(
+            PropTypes.shape({
+              id: PropTypes.number.isRequired,
+              slot: PropTypes.number.isRequired,
+            })
+          ).isRequired,
+        })
+      ).isRequired,
+    }).isRequired,
+    selectedAbility: PropTypes.number,
+    selectedVariety: PropTypes.number.isRequired,
+  }).isRequired,
+  onPokemonStateChange: PropTypes.func.isRequired,
 }
 
 export default PokemonAbility

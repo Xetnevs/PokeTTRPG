@@ -2,6 +2,7 @@ import 'react-nested-dropdown/dist/styles.css'
 import 'src/Pokemon/Attributes/Sprite/sprite.css'
 
 import { isObject, reduce } from 'lodash'
+import PropTypes from 'prop-types'
 import { Dropdown } from 'react-nested-dropdown'
 import { sanitizeString } from 'src/utils.js'
 
@@ -54,7 +55,7 @@ const PokemonSprite = ({
   return (
     <div className="sprite-container">
       <Dropdown items={items} containerWidth="300px">
-        {({ isOpen, onClick }) => (
+        {({ _, onClick }) => (
           <img
             className="pokemon-sprite"
             onClick={onClick}
@@ -64,6 +65,29 @@ const PokemonSprite = ({
       </Dropdown>
     </div>
   )
+}
+
+PokemonSprite.propTypes = {
+  pokemonState: PropTypes.shape({
+    species: PropTypes.shape({
+      varieties: PropTypes.objectOf(
+        PropTypes.shape({
+          sprites: PropTypes.shape({
+            front_default: PropTypes.string,
+            versions: PropTypes.objectOf(
+              PropTypes.shape({
+                url: PropTypes.string,
+              })
+            ).isRequired,
+            other: PropTypes.object.isRequired,
+          }).isRequired,
+        })
+      ).isRequired,
+    }).isRequired,
+    sprite: PropTypes.string,
+    selectedVariety: PropTypes.number.isRequired,
+  }).isRequired,
+  onPokemonStateChange: PropTypes.func.isRequired,
 }
 
 export default PokemonSprite

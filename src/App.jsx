@@ -8,8 +8,7 @@ import Pokemon from 'src/Pokemon'
 
 function App() {
   const { isLoading: isPokedexLoading } = usePokedex()
-  const [{ isLoading: isCustomConfigLoading }, updateCustomConfig] =
-    useCustomConfig()
+  const [{ isLoading: isCustomConfigLoading }, _] = useCustomConfig()
   const [isLoading, setIsLoading] = useState(
     isPokedexLoading || isCustomConfigLoading
   )
@@ -32,8 +31,8 @@ function App() {
     <>
       {!isLoading ? (
         <>
-          {Array.from({ length: partySize }).map(() => (
-            <Pokemon />
+          {Array.from({ length: partySize }).map(i => (
+            <Pokemon key={i} />
           ))}
 
           <div className="party-increase-button-container">

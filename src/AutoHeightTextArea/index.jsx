@@ -1,5 +1,6 @@
 import 'src/Pokemon/Attributes/Evolution/evolution.css'
 
+import PropTypes from 'prop-types'
 import { useEffect, useRef } from 'react'
 
 const AutoHeightTextArea = ({ children, ...props }) => {
@@ -19,6 +20,10 @@ const AutoHeightTextArea = ({ children, ...props }) => {
       {children}
     </textarea>
   )
+}
+AutoHeightTextArea.propTypes = {
+  children: PropTypes.array,
+  value: PropTypes.string,
 }
 
 export default AutoHeightTextArea

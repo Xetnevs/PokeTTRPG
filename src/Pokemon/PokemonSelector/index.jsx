@@ -26,9 +26,11 @@ const PokemonSelector = ({
   const getSelectedPokemonData = pokemon => {
     setSelected(pokemon)
     if (pokemon.length > 0) {
+      const defaultVarietyId = pokemon[0].defaultVarietyId
       onPokemonStateChange({
         species: pokemon[0],
-        selectedVariety: pokemon[0].defaultVarietyId,
+        selectedVariety: defaultVarietyId,
+        stats: pokemon[0].varieties[defaultVarietyId].base_stats,
       })
     }
   }

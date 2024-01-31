@@ -116,9 +116,6 @@ const convergeData = ({
     }))
   })
 
-  if (selectedPokemon === 'eevee') {
-  }
-
   //This maps the varieties to the mapped details above, assuming mapping variety[i] to evolutionDetail[i] making sure
   //to cycle around if there are less varieties than evolutions (for example, gloom -> [vileplume, bellossom]) or all
   //the blimmin' eevee's

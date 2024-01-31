@@ -1,5 +1,7 @@
 import 'src/Pokemon/Attributes/Stats/stats.css'
 
+import PropTypes from 'prop-types'
+
 const StatBlock = ({
   label,
   value,
@@ -26,5 +28,16 @@ const StatBlock = ({
     {children && <span className="stat-info">{children}</span>}
   </div>
 )
+
+StatBlock.propTypes = {
+  label: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  singleColumn: PropTypes.bool,
+  disabled: PropTypes.bool,
+  onChange: PropTypes.func,
+  children: PropTypes.array,
+  type: PropTypes.string,
+  max: PropTypes.number,
+}
 
 export default StatBlock

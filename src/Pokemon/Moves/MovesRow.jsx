@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types'
-import { useEffect } from 'react'
 import { useCustomConfig } from 'src/Contexts/CustomConfigContext'
-import MoveEditableCell from 'src/Pokemon/Attributes/Moves/MoveEditableCell'
-import MoveSelector from 'src/Pokemon/Attributes/Moves/MovesSelector'
+import MoveEditableCell from 'src/Pokemon/Moves/MoveEditableCell.jsx'
+import MoveSelector from 'src/Pokemon/Moves/MoveSelector.jsx'
 import { sanitizeString } from 'src/utils.js'
 
 const checkIsStab = (moveType, pokemon) =>
@@ -25,12 +24,6 @@ const MovesRow = ({ pokemonState, selectedMove, onPokemonStateChange }) => {
   const totalPower = selectedMove
     ? Math.floor((selectedMove.power + statPoints) * (isStab ? 1.5 : 1))
     : 0
-
-  //resets the selected move if the selected species changes
-  useEffect(
-    () => onPokemonStateChange(),
-    [pokemonState.species, onPokemonStateChange]
-  )
 
   return (
     <tr>
@@ -121,7 +114,10 @@ const MovesRow = ({ pokemonState, selectedMove, onPokemonStateChange }) => {
 
 MovesRow.propTypes = {
   pokemonState: PropTypes.shape({
-    stats: PropTypes.array.isRequired,
+    stats: PropTypes.shape({
+      attack: PropTypes.number,
+      'special-attack': PropTypes.number,
+    }).isRequired,
     species: PropTypes.object.isRequired,
     selectedVariety: PropTypes.number.isRequired,
   }).isRequired,

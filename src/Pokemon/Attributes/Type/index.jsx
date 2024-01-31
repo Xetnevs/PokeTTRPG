@@ -109,7 +109,11 @@ PokemonType.propTypes = {
   pokemonState: PropTypes.shape({
     selectedVariety: PropTypes.number.isRequired,
     species: PropTypes.shape({
-      varieties: PropTypes.array.isRequired,
+      varieties: PropTypes.objectOf(
+        PropTypes.shape({
+          types: PropTypes.arrayOf(PropTypes.string).isRequired,
+        })
+      ).isRequired,
     }).isRequired,
   }).isRequired,
 }

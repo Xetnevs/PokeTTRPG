@@ -29,11 +29,14 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
-    'space-before-function-paren': ['error', {
-    'anonymous': 'never',
-    'named': 'never',
-    'asyncArrow': 'always'
-    }],
+    'space-before-function-paren': [
+      'error',
+      {
+        anonymous: 'never',
+        named: 'never',
+        asyncArrow: 'always',
+      },
+    ],
     'no-unused-vars': 'off',
     'unused-imports/no-unused-imports': 'error',
     'unused-imports/no-unused-vars': [
