@@ -31,3 +31,9 @@ span.rbt-close-content {
   width: 100%;
   text-align: center;
 }
+
+.footer {
+      display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}

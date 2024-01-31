@@ -8,6 +8,7 @@ import { Typeahead } from 'react-bootstrap-typeahead'
 import { usePokedex } from 'src/Contexts/PokedexContext'
 
 //TODO: change selectedVariety to selectedVarietyId
+//TODO: save speciesId in state, not whole species
 const PokemonSelector = ({
   pokemonState: { species, selectedVariety },
   onPokemonStateChange,

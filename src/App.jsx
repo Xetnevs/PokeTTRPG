@@ -6,6 +6,8 @@ import { useCustomConfig } from 'src/Contexts/CustomConfigContext'
 import { usePokedex } from 'src/Contexts/PokedexContext'
 import LoadingSpinner from 'src/LoadingSpinner'
 import Pokemon from 'src/Pokemon'
+import SaveAllStateButton from 'src/SaveAllStateButton'
+import UploadAllButton from 'src/UploadAllButton'
 import { v4 as uuidv4 } from 'uuid'
 
 function App() {
@@ -57,6 +59,10 @@ function App() {
             >
               <img src="src/Assets/plus.svg" />
             </button>
+          </div>
+          <div className="footer">
+            <SaveAllStateButton partyPokemon={partyPokemon} />
+            <UploadAllButton setPartyPokemon={setPartyPokemon} />
           </div>
         </>
       ) : (

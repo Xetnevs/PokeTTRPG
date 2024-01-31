@@ -1,10 +1,10 @@
-import 'src/Pokemon/UploadStateButton/uploadButton.css'
+import 'src/UploadAllButton/uploadAll.css'
 
 import PropTypes from 'prop-types'
 import ReactFileReader from 'react-file-reader'
 import { useCustomConfig } from 'src/Contexts/CustomConfigContext'
 
-const UploadStateButton = ({ onPokemonStateChange }) => {
+const UploadAllButton = ({ setPartyPokemon }) => {
   const [_, updateCustomConfig] = useCustomConfig()
   return (
     <ReactFileReader
@@ -15,21 +15,19 @@ const UploadStateButton = ({ onPokemonStateChange }) => {
             .text()
             .then(JSON.parse)
             .then(res => {
-              onPokemonStateChange(res.pokemonState)
+              setPartyPokemon(res.partyPokemon)
               updateCustomConfig(res.customConfig)
             })
         }
       }}
     >
-      <button className="upload-button">
-        <img src="src/Assets/upload.svg" />
-      </button>
+      <button className="upload-all-button">Upload All</button>
     </ReactFileReader>
   )
 }
 
-UploadStateButton.propTypes = {
-  onPokemonStateChange: PropTypes.func.isRequired,
+UploadAllButton.propTypes = {
+  setPartyPokemon: PropTypes.func.isRequired,
 }
 
-export default UploadStateButton
+export default UploadAllButton
