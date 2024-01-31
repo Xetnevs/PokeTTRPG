@@ -1,0 +1,32 @@
+.party-increase-button img {
+  height: 60px;
+  transition: filter 0.3s ease;
+}
+
+.party-increase-button {
+  padding: 0px;
+  background-color: transparent;
+  transition: background-color 0.3s ease;
+  margin-top: 5px;
+  border: none;
+}
+
+.party-increase-button img:active {
+  filter: brightness(80%);
+}
+.party-increase-button:hover:not(:active) {
+  filter: brightness(60%);
+}
+
+.party-increase-button-container {
+  width: 100%;
+  text-align: center;
+}
+
+      .drop-shadow {
+        float: right;
+      }
+      .drop-shadow img {
+        filter: drop-shadow(3px 3px 3px #333333);
+        -webkit-filter: drop-shadow(3px 3px 3px #333333);
+      }

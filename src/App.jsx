@@ -1,75 +1,28 @@
 import 'src/App.css'
 
-import { map } from 'lodash'
-import { useEffect, useState } from 'react'
-import { useCustomConfig } from 'src/Contexts/CustomConfigContext'
-import { usePokedex } from 'src/Contexts/PokedexContext'
-import LoadingSpinner from 'src/LoadingSpinner'
-import Pokemon from 'src/Pokemon'
-import SaveAllStateButton from 'src/SaveAllStateButton'
-import UploadAllButton from 'src/UploadAllButton'
-import { v4 as uuidv4 } from 'uuid'
+import { useCallback, useEffect, useState } from 'react'
+import MemeApp from 'src/MemeApp'
+import PokeApp from 'src/PokeApp'
 
-function App() {
-  const { isLoading: isPokedexLoading } = usePokedex()
-  const [{ isLoading: isCustomConfigLoading }, _] = useCustomConfig()
-  const [isLoading, setIsLoading] = useState(
-    isPokedexLoading || isCustomConfigLoading
+const App = () => {
+  const [isMeme, setIsMeme] = useState(false)
+
+  const keydownHandler = useCallback(
+    e => {
+      if ((e.key === 'Q' || e.key === 'q') && e.ctrlKey) {
+        setIsMeme(!isMeme)
+      }
+    },
+    [isMeme]
   )
-  const [isCaught, setIsCaught] = useState(false)
-  const [partyPokemon, setPartyPokemon] = useState({ [uuidv4()]: {} })
-
   useEffect(() => {
-    if (!isPokedexLoading && !isCustomConfigLoading) {
-      setIsCaught(true)
-      const timeoutId = setTimeout(() => {
-        setIsLoading(false)
-      }, 2000)
-
-      // Cleanup function to clear the timeout if the component unmounts
-      return () => clearTimeout(timeoutId)
+    document.addEventListener('keydown', keydownHandler)
+    return () => {
+      document.removeEventListener('keydown', keydownHandler)
     }
-  }, [isPokedexLoading, isCustomConfigLoading])
+  }, [keydownHandler])
 
-  const setPartyPokemonData = id => data =>
-    setPartyPokemon({ ...partyPokemon, [id]: data })
-
-  return (
-    <>
-      {!isLoading ? (
-        <>
-          {map(
-            partyPokemon,
-            (poke, id) =>
-              poke && (
-                <Pokemon
-                  key={id}
-                  pokemonState={poke}
-                  setPokemonState={setPartyPokemonData(id)}
-                />
-              )
-          )}
-
-          <div className="party-increase-button-container">
-            <button
-              className="party-increase-button"
-              onClick={() =>
-                setPartyPokemon({ ...partyPokemon, [uuidv4()]: {} })
-              }
-            >
-              <img src="src/Assets/plus.svg" />
-            </button>
-          </div>
-          <div className="footer">
-            <SaveAllStateButton partyPokemon={partyPokemon} />
-            <UploadAllButton setPartyPokemon={setPartyPokemon} />
-          </div>
-        </>
-      ) : (
-        <LoadingSpinner isCaught={isCaught} />
-      )}
-    </>
-  )
+  return <>{isMeme ? <MemeApp /> : <PokeApp />}</>
 }
 
 export default App
