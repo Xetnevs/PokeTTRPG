@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react'
 import 'src/Pokemon/Attributes/Stats/stats.css'
+
+import { useEffect } from 'react'
+import StatBlock from 'src/Pokemon/Attributes/Stats/StatBlock'
 
 const getMovement = speed => {
   let comparisonNumber = 2
@@ -13,7 +15,7 @@ const getMovement = speed => {
   return output
 }
 
-const getSize = ({ height, }) => {
+const getSize = ({ height }) => {
   if (height > 60) {
     return '3x3'
   } else if (height > 20) {
@@ -22,34 +24,7 @@ const getSize = ({ height, }) => {
   return '1x1'
 }
 
-const StatBlock = ({
-  label,
-  value,
-  singleColumn,
-  disabled,
-  onChange,
-  children,
-  type = 'number',
-  max = 1000,
-}) => (
-  <div
-    className={`stat-group${singleColumn ? ' single-column' : ''}${children ? ' double-row' : ''}`}
-  >
-    <span className="stat-label">{label}:</span>
-    <input
-      className="stat-input"
-      value={value}
-      type={type}
-      step="1"
-      onChange={onChange}
-      disabled={disabled}
-      max={max}
-    />
-    {children && <span className="stat-info">{children}</span>}
-  </div>
-)
-
-const PokemonStats = ({ pokemonState, onPokemonStateChange, }) => {
+const PokemonStats = ({ pokemonState, onPokemonStateChange }) => {
   const baseStats =
     pokemonState.species.varieties[pokemonState.selectedVariety].base_stats
   const level = pokemonState.level || 1
@@ -61,11 +36,11 @@ const PokemonStats = ({ pokemonState, onPokemonStateChange, }) => {
 
   useEffect(() => {
     if (!pokemonState.stats) {
-      onPokemonStateChange({ stats: baseStats, })
+      onPokemonStateChange({ stats: baseStats })
     }
-  }, [pokemonState,])
+  }, [pokemonState])
 
-  const onLevelChange = ({ target: { value, }, }) => {
+  const onLevelChange = ({ target: { value } }) => {
     const levelToSet = Math.max(1, value)
 
     const diff = levelToSet - level
@@ -80,20 +55,20 @@ const PokemonStats = ({ pokemonState, onPokemonStateChange, }) => {
 
   const onStatChange =
     stat =>
-      ({ target: { value, }, }) => {
-        const valueInt = parseInt(value)
-        const diff = stats[stat] - valueInt
+    ({ target: { value } }) => {
+      const valueInt = parseInt(value)
+      const diff = stats[stat] - valueInt
 
-        if (statPointsToAllocate + diff >= 0 && valueInt >= baseStats[stat]) {
-          onPokemonStateChange({
-            stats: {
-              ...stats,
-              [stat]: valueInt,
-            },
-            statPointsToAllocate: statPointsToAllocate + diff,
-          })
-        }
+      if (statPointsToAllocate + diff >= 0 && valueInt >= baseStats[stat]) {
+        onPokemonStateChange({
+          stats: {
+            ...stats,
+            [stat]: valueInt,
+          },
+          statPointsToAllocate: statPointsToAllocate + diff,
+        })
       }
+    }
 
   return (
     <div className="stat-container">
@@ -137,7 +112,7 @@ const PokemonStats = ({ pokemonState, onPokemonStateChange, }) => {
         label="Size"
         value={size}
         type="text"
-        onChange={e => onPokemonStateChange({ size: e.target.value, })}
+        onChange={e => onPokemonStateChange({ size: e.target.value })}
       />
 
       <div className="stats-button-container">
@@ -160,5 +135,7 @@ const PokemonStats = ({ pokemonState, onPokemonStateChange, }) => {
     </div>
   )
 }
+
+PokemonStats.propTypes = {}
 
 export default PokemonStats

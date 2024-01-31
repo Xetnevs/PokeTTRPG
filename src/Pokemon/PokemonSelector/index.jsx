@@ -1,30 +1,27 @@
-import { useState, useEffect } from 'react'
-import { Typeahead } from 'react-bootstrap-typeahead'
-import { values } from 'lodash'
-import { usePokedex } from 'src/Contexts/PokedexContext'
-import { sanitizeString } from 'src/utils.js'
 import 'src/Pokemon/PokemonSelector/pokemonSelector.css'
 import 'react-bootstrap-typeahead/css/Typeahead.css'
 
+import { values } from 'lodash'
+import PropTypes from 'prop-types'
+import { useEffect, useState } from 'react'
+import { Typeahead } from 'react-bootstrap-typeahead'
+import { usePokedex } from 'src/Contexts/PokedexContext'
+
 //TODO: change selectedVariety to selectedVarietyId
 const PokemonSelector = ({
-  pokemonState: { species, selectedVariety, },
+  pokemonState: { species, selectedVariety },
   onPokemonStateChange,
 }) => {
   const Pokedex = usePokedex()
-  const [selected, setSelected,] = useState([])
-  const [selectedVariety2, setSelectedVariety,] = useState([])
-  // const [pokemonList, setPokemonList] = useState()
+  const [selected, setSelected] = useState([])
+  const [localSelectedVariety, setLocalSelectedVariety] = useState([])
 
   useEffect(() => {
     if (species) {
-      setSelected([species,])
-      setSelectedVariety([species.varieties[selectedVariety],])
+      setSelected([species])
+      setLocalSelectedVariety([species.varieties[selectedVariety]])
     }
-  }, [species, selectedVariety,])
-
-  //TODO: Remove
-  console.log(Pokedex.pokemonData)
+  }, [species, selectedVariety])
 
   const getSelectedPokemonData = pokemon => {
     setSelected(pokemon)
@@ -36,7 +33,7 @@ const PokemonSelector = ({
     }
   }
   const updateSelectedVariety = pokemon => {
-    setSelectedVariety(pokemon)
+    setLocalSelectedVariety(pokemon)
     if (pokemon.length > 0) {
       onPokemonStateChange({
         species: selected[0],
@@ -71,12 +68,20 @@ const PokemonSelector = ({
             onChange={updateSelectedVariety}
             options={values(species.varieties)}
             placeholder="Choose Variety"
-            selected={selectedVariety2}
+            selected={localSelectedVariety}
           />
         </div>
       )}
     </>
   )
+}
+
+PokemonSelector.propTypes = {
+  pokemonState: PropTypes.shape({
+    species: PropTypes.object,
+    selectedVariety: PropTypes.number,
+  }).isRequired,
+  onPokemonStateChange: PropTypes.func.isRequired,
 }
 
 export default PokemonSelector

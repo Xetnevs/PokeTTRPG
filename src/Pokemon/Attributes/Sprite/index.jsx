@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react'
-import { sanitizeString } from 'src/utils.js'
-import { isEmpty, isObject, reduce } from 'lodash'
-import { Dropdown } from 'react-nested-dropdown'
 import 'react-nested-dropdown/dist/styles.css'
 import 'src/Pokemon/Attributes/Sprite/sprite.css'
+
+import { isObject, reduce } from 'lodash'
+import { Dropdown } from 'react-nested-dropdown'
+import { sanitizeString } from 'src/utils.js'
 
 const mapToDropdownItems = onSelect => (acc, value, key) => {
   if (isObject(value)) {
@@ -31,7 +31,7 @@ const mapToDropdownItems = onSelect => (acc, value, key) => {
 }
 
 const PokemonSprite = ({
-  pokemonState: { species, sprite, selectedVariety, },
+  pokemonState: { species, sprite, selectedVariety },
   onPokemonStateChange,
 }) => {
   const officialArt =
@@ -54,7 +54,7 @@ const PokemonSprite = ({
   return (
     <div className="sprite-container">
       <Dropdown items={items} containerWidth="300px">
-        {({ isOpen, onClick, }) => (
+        {({ isOpen, onClick }) => (
           <img
             className="pokemon-sprite"
             onClick={onClick}

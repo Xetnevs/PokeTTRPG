@@ -1,8 +1,9 @@
-import { sanitizeString } from 'src/utils.js'
 import 'src/Pokemon/TrainerName/trainerName.css'
 
+import PropTypes from 'prop-types'
+
 const TrainerName = ({
-  pokemonState: { trainer = '', },
+  pokemonState: { trainer = '' },
   onPokemonStateChange,
 }) => (
   <>
@@ -11,10 +12,17 @@ const TrainerName = ({
       <input
         className="trainer-input"
         value={trainer}
-        onChange={e => onPokemonStateChange({ trainer: e.target.value, })}
+        onChange={e => onPokemonStateChange({ trainer: e.target.value })}
       />
     </div>
   </>
 )
+
+TrainerName.propTypes = {
+  pokemonState: PropTypes.shape({
+    trainer: PropTypes.string,
+  }).isRequired,
+  onPokemonStateChange: PropTypes.func.isRequired,
+}
 
 export default TrainerName

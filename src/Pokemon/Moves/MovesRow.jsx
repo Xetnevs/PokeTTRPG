@@ -1,0 +1,141 @@
+import PropTypes from 'prop-types'
+import { useEffect } from 'react'
+import { useCustomConfig } from 'src/Contexts/CustomConfigContext'
+import MoveEditableCell from 'src/Pokemon/Attributes/Moves/MoveEditableCell'
+import MoveSelector from 'src/Pokemon/Attributes/Moves/MovesSelector'
+import { sanitizeString } from 'src/utils.js'
+
+const checkIsStab = (moveType, pokemon) =>
+  pokemon.types.find(type => type === moveType)
+
+const MovesRow = ({ pokemonState, selectedMove, onPokemonStateChange }) => {
+  const [_, updateCustomConfig] = useCustomConfig()
+
+  const statPoints = selectedMove
+    ? selectedMove.damage_class.name.toUpperCase() === 'SPECIAL'
+      ? pokemonState.stats['special-attack']
+      : pokemonState.stats.attack
+    : 0
+  const isStab = selectedMove
+    ? checkIsStab(
+        selectedMove.type.name,
+        pokemonState.species.varieties[pokemonState.selectedVariety]
+      )
+    : false
+  const totalPower = selectedMove
+    ? Math.floor((selectedMove.power + statPoints) * (isStab ? 1.5 : 1))
+    : 0
+
+  //resets the selected move if the selected species changes
+  useEffect(
+    () => onPokemonStateChange(),
+    [pokemonState.species, onPokemonStateChange]
+  )
+
+  return (
+    <tr>
+      <td>
+        <MoveSelector
+          pokemonState={pokemonState}
+          onPokemonStateChange={onPokemonStateChange}
+          selectedMove={selectedMove}
+        />
+      </td>
+      {selectedMove ? (
+        <>
+          <td>
+            <img
+              className="type-icon"
+              src={`/src/assets/types/${selectedMove.type.name}.png`}
+              key={selectedMove.type.name}
+            />
+          </td>
+          <td>{sanitizeString(selectedMove.damage_class.name)}</td>
+          <td>
+            <MoveEditableCell
+              selectedMove={selectedMove}
+              moveAttribute="range"
+            />
+          </td>
+          <td>
+            <MoveEditableCell
+              selectedMove={selectedMove}
+              moveAttribute="accuracy"
+            />
+          </td>
+          {selectedMove.damage_class.name !== 'status' && (
+            <>
+              <td>
+                <MoveEditableCell
+                  selectedMove={selectedMove}
+                  moveAttribute="power"
+                />
+              </td>
+              <td>{statPoints}</td>
+              <td>{isStab ? '✅' : '❌'}</td>
+              <td>{totalPower}</td>
+            </>
+          )}
+          <td colSpan={selectedMove.damage_class.name === 'status' ? 5 : 1}>
+            <MoveEditableCell
+              selectedMove={selectedMove}
+              moveAttribute="moveDescription"
+            />
+          </td>
+          <td>
+            <MoveEditableCell selectedMove={selectedMove} moveAttribute="pp" />
+          </td>
+          <td>
+            <button
+              className="moves-revert-button"
+              onClick={() =>
+                updateCustomConfig({
+                  moves: {
+                    [selectedMove.id]: undefined,
+                  },
+                })
+              }
+            >
+              <img src="src/Assets/undo.png" />
+            </button>
+          </td>
+        </>
+      ) : (
+        <>
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+          <td />
+        </>
+      )}
+    </tr>
+  )
+}
+
+MovesRow.propTypes = {
+  pokemonState: PropTypes.shape({
+    stats: PropTypes.array.isRequired,
+    species: PropTypes.object.isRequired,
+    selectedVariety: PropTypes.number.isRequired,
+  }).isRequired,
+  selectedMove: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    power: PropTypes.number.isRequired,
+    damage_class: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+    }).isRequired,
+    type: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+    }).isRequired,
+  }),
+  onPokemonStateChange: PropTypes.func.isRequired,
+}
+
+export default MovesRow

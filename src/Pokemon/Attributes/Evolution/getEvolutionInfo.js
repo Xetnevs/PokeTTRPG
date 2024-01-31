@@ -1,37 +1,37 @@
+import { find, map } from 'lodash'
 import { sanitizeString } from 'src/utils.js'
-import { isEmpty, map, find } from 'lodash'
 
 const getEvolutionTriggerText = details => {
   switch (details?.evolution_trigger.name) {
-  case 'level-up':
-    return `when leveled up`
-  case 'trade':
-    if (details.trade_for_species) {
-      return `by trading for a ${sanitizeString(details.trade_for_species.name)}`
-    }
-    return `by trading`
-  case 'use-item':
-    return `by using a ${sanitizeString(details.use_item.name)}`
-  case 'shed':
-    return `by shedding with a free spot in the party`
-  case 'three-critical-hits':
-    return `by landing three of them sweet as crits in a single encounter`
-  case 'take-damage':
-    return `after taking 49 points of damage without dying`
-  case 'recoil-damage':
-    return `after losing at least 294 points from recoil damage without dying`
-  case 'spin':
-    return `if the player spins while holding a sweet item`
-  case 'strong-style-move':
-  case 'agile-style-move':
-  case 'tower-of-waters':
-    return `by using the scroll of waters`
-  case 'tower-of-darkness':
-    return `by using the scroll of darkness`
-  case 'other':
-    return `by a sacrifice to the DM`
-  default:
-    return 'method not found'
+    case 'level-up':
+      return `when leveled up`
+    case 'trade':
+      if (details.trade_for_species) {
+        return `by trading for a ${sanitizeString(details.trade_for_species.name)}`
+      }
+      return `by trading`
+    case 'use-item':
+      return `by using a ${sanitizeString(details.use_item.name)}`
+    case 'shed':
+      return `by shedding with a free spot in the party`
+    case 'three-critical-hits':
+      return `by landing three of them sweet as crits in a single encounter`
+    case 'take-damage':
+      return `after taking 49 points of damage without dying`
+    case 'recoil-damage':
+      return `after losing at least 294 points from recoil damage without dying`
+    case 'spin':
+      return `if the player spins while holding a sweet item`
+    case 'strong-style-move':
+    case 'agile-style-move':
+    case 'tower-of-waters':
+      return `by using the scroll of waters`
+    case 'tower-of-darkness':
+      return `by using the scroll of darkness`
+    case 'other':
+      return `by a sacrifice to the DM`
+    default:
+      return 'method not found'
   }
 }
 
@@ -124,7 +124,7 @@ const getEvolutionInfo = (species, selectedVariety, pokemonData) => {
       }),
     ]
   } else {
-    evolutionInfo = [...evolutionInfo, '- Does not evolve',]
+    evolutionInfo = [...evolutionInfo, '- Does not evolve']
   }
   return evolutionInfo.join('\n')
 }

@@ -1,7 +1,6 @@
-import { useState, useEffect, useContext } from 'react'
 import 'src/LoadingSpinner/loading.css'
 
-const LoadingSpinner = ({ isCaught, }) => (
+const LoadingSpinner = ({ isCaught }) => (
   <div className="loading-container">
     <div className={`pokeball${isCaught ? ' caught' : ''}`}></div>
   </div>

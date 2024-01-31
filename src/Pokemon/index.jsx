@@ -1,24 +1,25 @@
+import 'src/Pokemon/pokemon.css'
+
+import { isEmpty } from 'lodash'
 import { useState } from 'react'
+import Ability from 'src/Pokemon/Attributes/Ability'
+import Evolution from 'src/Pokemon/Attributes/Evolution'
 import Sprite from 'src/Pokemon/Attributes/Sprite'
 import Stats from 'src/Pokemon/Attributes/Stats'
 import Type from 'src/Pokemon/Attributes/Type'
-import Ability from 'src/Pokemon/Attributes/Ability'
-import Evolution from 'src/Pokemon/Attributes/Evolution'
 import Moves from 'src/Pokemon/Moves/MovesTable.jsx'
-import PokemonSelector from 'src/Pokemon/PokemonSelector'
-import PokemonNickname from 'src/Pokemon/PokemonNickname'
-import TrainerName from 'src/Pokemon/TrainerName'
-import SaveStateButton from 'src/Pokemon/SaveStateButton'
-import UploadStateButton from 'src/Pokemon/UploadStateButton'
 import Notes from 'src/Pokemon/Notes'
-import { isEmpty } from 'lodash'
-import 'src/Pokemon/pokemon.css'
+import PokemonNickname from 'src/Pokemon/PokemonNickname'
+import PokemonSelector from 'src/Pokemon/PokemonSelector'
+import SaveStateButton from 'src/Pokemon/SaveStateButton'
+import TrainerName from 'src/Pokemon/TrainerName'
+import UploadStateButton from 'src/Pokemon/UploadStateButton'
 
 const Pokemon = () => {
-  const [pokemonState, setPokemonState,] = useState({})
+  const [pokemonState, setPokemonState] = useState({})
 
   const onPokemonStateChange = newState =>
-    setPokemonState({ ...pokemonState, ...newState, })
+    setPokemonState({ ...pokemonState, ...newState })
 
   return (
     <div className="pokemon-card">
@@ -74,10 +75,7 @@ const Pokemon = () => {
           pokemonState={pokemonState}
           onPokemonStateChange={setPokemonState}
         />
-        <UploadStateButton
-          pokemonState={pokemonState}
-          onPokemonStateChange={setPokemonState}
-        />
+        <UploadStateButton onPokemonStateChange={setPokemonState} />
       </div>
     </div>
   )

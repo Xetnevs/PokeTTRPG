@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useContext, useMemo } from 'react'
-import { Pokedex } from 'pokeapi-js-wrapper'
 import axios from 'axios'
-import { setItemWithCache, getItemFromCache } from 'src/pokeStore'
-import queryForAll from 'src/Contexts/PokedexContext/queryForAll'
+import { Pokedex } from 'pokeapi-js-wrapper'
+import React, { useContext, useEffect, useState } from 'react'
 import mapPokemonData from 'src/Contexts/PokedexContext/mapPokemonData'
+import queryForAll from 'src/Contexts/PokedexContext/queryForAll'
+import { getItemFromCache, setItemWithCache } from 'src/pokeStore'
 
 const PokedexContext = React.createContext()
 
-const PokedexInstance = new Pokedex({ cacheImages: true, })
+const PokedexInstance = new Pokedex({ cacheImages: true })
 
 const doQueryForAll = () =>
   axios({
@@ -16,7 +16,7 @@ const doQueryForAll = () =>
     data: {
       query: queryForAll,
     },
-  }).then(({ data: { data, }, }) => {
+  }).then(({ data: { data } }) => {
     setItemWithCache('pokettrpg-all-data', data)
     return data
   })
@@ -25,9 +25,9 @@ export const usePokedex = () => {
   return useContext(PokedexContext)
 }
 
-const PokedexContextComponent = ({ children, }) => {
-  const [pokemonData, setPokemonData,] = useState({})
-  const [isLoading, setIsLoading,] = useState(true)
+const PokedexContextComponent = ({ children }) => {
+  const [pokemonData, setPokemonData] = useState({})
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     getItemFromCache('pokettrpg-all-data')
@@ -44,7 +44,7 @@ const PokedexContextComponent = ({ children, }) => {
   }, [])
 
   return (
-    <PokedexContext.Provider value={{ isLoading, pokemonData, }}>
+    <PokedexContext.Provider value={{ isLoading, pokemonData }}>
       {children}
     </PokedexContext.Provider>
   )

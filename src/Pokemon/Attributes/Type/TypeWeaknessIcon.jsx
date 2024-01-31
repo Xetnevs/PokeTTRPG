@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import { sanitizeString } from 'src/utils.js'
 
 const half = '½×'
@@ -15,7 +15,7 @@ const getMutliplierText = multiplier => {
   return `${multiplier}${times}`
 }
 
-const TypeWeaknessIcon = ({ type, multiplier, }) => {
+const TypeWeaknessIcon = ({ type, multiplier }) => {
   return (
     <span className="type-weakness-icon">
       <table className={`type-weakness-table ${type}`}>
@@ -36,6 +36,11 @@ const TypeWeaknessIcon = ({ type, multiplier, }) => {
       </table>
     </span>
   )
+}
+
+TypeWeaknessIcon.propTypes = {
+  type: PropTypes.string.isRequired,
+  multiplier: PropTypes.number.isRequired,
 }
 
 export default TypeWeaknessIcon

@@ -1,10 +1,9 @@
-import { useState, useEffect, useContext, useRef } from 'react'
-import { usePokedex } from 'src/Contexts/PokedexContext'
-import { useCustomConfig } from 'src/Contexts/CustomConfigContext'
-import getEvolutionInfo from 'src/Pokemon/Attributes/Evolution/getEvolutionInfo'
-import AutoHeightTextArea from 'src/AutoHeightTextArea'
-import { merge } from 'lodash'
 import 'src/Pokemon/Attributes/Evolution/evolution.css'
+
+import AutoHeightTextArea from 'src/AutoHeightTextArea'
+import { useCustomConfig } from 'src/Contexts/CustomConfigContext'
+import { usePokedex } from 'src/Contexts/PokedexContext'
+import getEvolutionInfo from 'src/Pokemon/Attributes/Evolution/getEvolutionInfo'
 
 //Special cases: TODO: Nosepass (thunder stone), Feebas(2), Kubfu (fix mapping), meltan, duraludon, sinistcha, hydrapple
 
@@ -21,8 +20,8 @@ const getEvolveTo = (species, selectedVariety, customConfig, pokemonData) => {
   }
 }
 
-const Evolution = ({ pokemonState: { species, selectedVariety, }, }) => {
-  const [customConfig, updateCustomConfig,] = useCustomConfig()
+const Evolution = ({ pokemonState: { species, selectedVariety } }) => {
+  const [customConfig, updateCustomConfig] = useCustomConfig()
   const Pokedex = usePokedex()
 
   return (
@@ -38,7 +37,7 @@ const Evolution = ({ pokemonState: { species, selectedVariety, }, }) => {
         onChange={e => {
           updateCustomConfig({
             pokemon: {
-              [species.id]: { evolvesTo: e.target.value, },
+              [species.id]: { evolvesTo: e.target.value },
             },
           })
         }}
@@ -50,7 +49,7 @@ const Evolution = ({ pokemonState: { species, selectedVariety, }, }) => {
           onClick={() =>
             updateCustomConfig({
               pokemon: {
-                [species.id]: { evolvesTo: undefined, },
+                [species.id]: { evolvesTo: undefined },
               },
             })
           }

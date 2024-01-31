@@ -1,26 +1,25 @@
-import { useState, useEffect } from 'react'
-import { isEmpty } from 'lodash'
-import { useCustomConfig } from 'src/Contexts/CustomConfigContext'
-import exportFromJSON from 'export-from-json'
 import 'src/Pokemon/SaveStateButton/saveButton.css'
 
-//TODO: Find save only the custom config of the selected ability
+import exportFromJSON from 'export-from-json'
+import { isEmpty } from 'lodash'
+import PropTypes from 'prop-types'
+import { useCustomConfig } from 'src/Contexts/CustomConfigContext'
 
 const getActivePokemonConfig = (pokemonState, customConfig) => {
   const foundPokemon = customConfig.pokemon?.[pokemonState?.species?.id]
   const pokemonCustom = foundPokemon
-    ? { [pokemonState?.species?.id]: foundPokemon, }
+    ? { [pokemonState?.species?.id]: foundPokemon }
     : {}
   const movesCustom = pokemonState.selectedMoves.reduce((acc, move) => {
     const foundMove = customConfig.moves?.[move.id]
-    return foundMove ? { ...acc, [move.id]: foundMove, } : { ...acc, }
+    return foundMove ? { ...acc, [move.id]: foundMove } : { ...acc }
   }, {})
   const selectedAbilityId =
     pokemonState?.species?.varieties?.[pokemonState.selectedVariety]
       ?.abilities?.[pokemonState.selectedAbility || 1]?.id
   const abilityText = customConfig.abilities?.[selectedAbilityId] || ''
 
-  const abilityCustom = abilityText ? { [selectedAbilityId]: abilityText, } : {}
+  const abilityCustom = abilityText ? { [selectedAbilityId]: abilityText } : {}
 
   return {
     pokemon: pokemonCustom,
@@ -29,8 +28,8 @@ const getActivePokemonConfig = (pokemonState, customConfig) => {
   }
 }
 
-const SaveStateButton = ({ pokemonState, }) => {
-  const [customConfig, _,] = useCustomConfig()
+const SaveStateButton = ({ pokemonState }) => {
+  const [customConfig, _] = useCustomConfig()
   return (
     <>
       {!isEmpty(pokemonState) && (
@@ -55,6 +54,10 @@ const SaveStateButton = ({ pokemonState, }) => {
       )}
     </>
   )
+}
+
+SaveStateButton.propTypes = {
+  pokemonState: PropTypes.object.isRequired,
 }
 
 export default SaveStateButton

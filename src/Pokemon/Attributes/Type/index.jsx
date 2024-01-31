@@ -1,13 +1,13 @@
-import { useState, useEffect, useContext } from 'react'
-import { sanitizeString } from 'src/utils.js'
-import { usePokedex } from 'src/Contexts/PokedexContext'
-import { map, some } from 'lodash'
 import 'src/Pokemon/Attributes/Type/type.css'
+
+import { map, some } from 'lodash'
+import PropTypes from 'prop-types'
+import { usePokedex } from 'src/Contexts/PokedexContext'
 import TypeWeaknessIcon from 'src/Pokemon/Attributes/Type/TypeWeaknessIcon.jsx'
 
 const mergeTypeChart = (chart1, chart2) => {
-  let merged = { ...chart1, }
-  for (const [key, value,] of Object.entries(chart2)) {
+  let merged = { ...chart1 }
+  for (const [key, value] of Object.entries(chart2)) {
     merged = {
       ...merged,
       [key]: value * (merged[key] || 1),
@@ -16,12 +16,9 @@ const mergeTypeChart = (chart1, chart2) => {
   return merged
 }
 
-const hasTypeResistance = typeDetails =>
-  some(typeDetails, (value, key) => value < 1)
-const hasTypeWeakness = typeDetails =>
-  some(typeDetails, (value, key) => value > 1)
-const hasTypeImmunity = typeDetails =>
-  some(typeDetails, (value, key) => value === 0)
+const hasTypeResistance = typeDetails => some(typeDetails, value => value < 1)
+const hasTypeWeakness = typeDetails => some(typeDetails, value => value > 1)
+const hasTypeImmunity = typeDetails => some(typeDetails, value => value === 0)
 
 const getTypeMatchups = (typeDetails, pokemon) =>
   pokemon.types.reduce(
@@ -29,7 +26,7 @@ const getTypeMatchups = (typeDetails, pokemon) =>
     {}
   )
 
-const PokemonType = ({ pokemonState: { species, selectedVariety, }, }) => {
+const PokemonType = ({ pokemonState: { species, selectedVariety } }) => {
   const Pokedex = usePokedex()
   const typeDetails = getTypeMatchups(
     Pokedex.pokemonData.types,
@@ -106,6 +103,15 @@ const PokemonType = ({ pokemonState: { species, selectedVariety, }, }) => {
       )}
     </div>
   )
+}
+
+PokemonType.propTypes = {
+  pokemonState: PropTypes.shape({
+    selectedVariety: PropTypes.number.isRequired,
+    species: PropTypes.shape({
+      varieties: PropTypes.array.isRequired,
+    }).isRequired,
+  }).isRequired,
 }
 
 export default PokemonType

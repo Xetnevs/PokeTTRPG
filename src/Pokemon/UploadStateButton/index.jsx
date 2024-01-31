@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react'
-import { merge } from 'lodash'
-import { useCustomConfig } from 'src/Contexts/CustomConfigContext'
-import ReactFileReader from 'react-file-reader'
 import 'src/Pokemon/UploadStateButton/uploadButton.css'
 
-const SaveUploadStateButton = ({ pokemonState, onPokemonStateChange, }) => {
-  const [_, updateCustomConfig,] = useCustomConfig()
+import PropTypes from 'prop-types'
+import ReactFileReader from 'react-file-reader'
+import { useCustomConfig } from 'src/Contexts/CustomConfigContext'
+
+const SaveUploadStateButton = ({ onPokemonStateChange }) => {
+  const [_, updateCustomConfig] = useCustomConfig()
   return (
     <ReactFileReader
-      fileTypes={['.json',]}
+      fileTypes={['.json']}
       handleFiles={file => {
         if (file.length > 0) {
           file[0]
@@ -26,6 +26,10 @@ const SaveUploadStateButton = ({ pokemonState, onPokemonStateChange, }) => {
       </button>
     </ReactFileReader>
   )
+}
+
+SaveUploadStateButton.propTypes = {
+  onPokemonStateChange: PropTypes.func.isRequired,
 }
 
 export default SaveUploadStateButton

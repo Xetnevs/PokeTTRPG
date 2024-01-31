@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react'
-import { map } from 'lodash'
-import { sanitizeString } from 'src/utils.js'
-import { usePokedex } from 'src/Contexts/PokedexContext'
-import { useCustomConfig } from 'src/Contexts/CustomConfigContext'
-import AutoHeightTextArea from 'src/AutoHeightTextArea'
 import 'src/Pokemon/Attributes/Ability/ability.css'
+
+import { map } from 'lodash'
+import AutoHeightTextArea from 'src/AutoHeightTextArea'
+import { useCustomConfig } from 'src/Contexts/CustomConfigContext'
+import { usePokedex } from 'src/Contexts/PokedexContext'
 
 const getAbilityText = (customConfig, selectedAbilityId, pokemonData) => {
   if (customConfig.abilities?.[selectedAbilityId]) {
@@ -15,16 +14,16 @@ const getAbilityText = (customConfig, selectedAbilityId, pokemonData) => {
 }
 
 const PokemonAbility = ({
-  pokemonState: { species, selectedAbility = 1, selectedVariety, },
+  pokemonState: { species, selectedAbility = 1, selectedVariety },
   onPokemonStateChange,
 }) => {
   const abilities = species.varieties[selectedVariety].abilities
   const selectedAbilityId = abilities[selectedAbility].id
-  const [customConfig, updateCustomConfig,] = useCustomConfig()
+  const [customConfig, updateCustomConfig] = useCustomConfig()
   const Pokedex = usePokedex()
 
-  const onChange = ({ target: { value, }, }) =>
-    onPokemonStateChange({ selectedAbility: value, })
+  const onChange = ({ target: { value } }) =>
+    onPokemonStateChange({ selectedAbility: value })
 
   return (
     <div className="ability-container">
@@ -34,7 +33,7 @@ const PokemonAbility = ({
         onChange={onChange}
         value={selectedAbility}
       >
-        {map(abilities, ({ name, slot, }) => (
+        {map(abilities, ({ name, slot }) => (
           <option value={slot} key={slot}>
             {name}
           </option>

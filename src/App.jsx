@@ -1,19 +1,20 @@
-import { useState, useEffect } from 'react'
-import { usePokedex } from 'src/Contexts/PokedexContext'
-import { useCustomConfig } from 'src/Contexts/CustomConfigContext'
-import LoadingSpinner from 'src/LoadingSpinner'
-import Pokemon from 'src/Pokemon'
 import 'src/App.css'
 
+import { useEffect, useState } from 'react'
+import { useCustomConfig } from 'src/Contexts/CustomConfigContext'
+import { usePokedex } from 'src/Contexts/PokedexContext'
+import LoadingSpinner from 'src/LoadingSpinner'
+import Pokemon from 'src/Pokemon'
+
 function App() {
-  const { isLoading: isPokedexLoading, } = usePokedex()
-  const [{ isLoading: isCustomConfigLoading, }, updateCustomConfig,] =
+  const { isLoading: isPokedexLoading } = usePokedex()
+  const [{ isLoading: isCustomConfigLoading }, updateCustomConfig] =
     useCustomConfig()
-  const [isLoading, setIsLoading,] = useState(
+  const [isLoading, setIsLoading] = useState(
     isPokedexLoading || isCustomConfigLoading
   )
-  const [isCaught, setIsCaught,] = useState(false)
-  const [partySize, setPartySize,] = useState(1)
+  const [isCaught, setIsCaught] = useState(false)
+  const [partySize, setPartySize] = useState(1)
 
   useEffect(() => {
     if (!isPokedexLoading && !isCustomConfigLoading) {
@@ -25,13 +26,13 @@ function App() {
       // Cleanup function to clear the timeout if the component unmounts
       return () => clearTimeout(timeoutId)
     }
-  }, [isPokedexLoading, isCustomConfigLoading,])
+  }, [isPokedexLoading, isCustomConfigLoading])
 
   return (
     <>
       {!isLoading ? (
         <>
-          {Array.from({ length: partySize, }).map(() => (
+          {Array.from({ length: partySize }).map(() => (
             <Pokemon />
           ))}
 

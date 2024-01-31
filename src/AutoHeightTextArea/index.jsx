@@ -1,8 +1,6 @@
-import { useState, useEffect, useContext, useRef } from 'react'
-import { usePokedex } from 'src/Contexts/PokedexContext'
-import { useCustomConfig } from 'src/Contexts/CustomConfigContext'
-import getEvolutionInfo from 'src/Pokemon/Attributes/Evolution/getEvolutionInfo'
 import 'src/Pokemon/Attributes/Evolution/evolution.css'
+
+import { useEffect, useRef } from 'react'
 
 const AutoHeightTextArea = ({ children, ...props }) => {
   const textareaRef = useRef(null)
@@ -14,7 +12,7 @@ const AutoHeightTextArea = ({ children, ...props }) => {
       textareaRef.current.style.height = '25px'
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
     }
-  }, [props.value,])
+  }, [props.value])
 
   return (
     <textarea ref={textareaRef} {...props}>
