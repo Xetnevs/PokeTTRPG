@@ -20,5 +20,11 @@
 }
 
 .choose-image {
-  width: 100%;
+  width: 70%;
+}
+
+.none-selected {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

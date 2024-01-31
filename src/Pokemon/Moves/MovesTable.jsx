@@ -22,6 +22,7 @@ const MovesTable = ({ pokemonState, onPokemonStateChange }) => {
         <thead>
           <tr className="moves-table-header">
             <th>Name</th>
+            <th>Learn</th>
             <th>Type</th>
             <th>Category</th>
             <th>Range</th>

@@ -23,7 +23,7 @@ const AutoHeightTextArea = ({ children, ...props }) => {
 }
 AutoHeightTextArea.propTypes = {
   children: PropTypes.array,
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 }
 
 export default AutoHeightTextArea

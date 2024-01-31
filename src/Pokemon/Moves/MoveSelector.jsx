@@ -11,9 +11,11 @@ const MoveSelector = ({
   const Pokedex = usePokedex()
 
   const movesList = compact(
-    species.varieties[selectedVariety].moves.map(
-      move => Pokedex.pokemonData.moves[move.move_id]
-    )
+    species.varieties[selectedVariety].moves.map(move => ({
+      ...Pokedex.pokemonData.moves[move.move_id],
+      level: move.level,
+      learnMethod: move.learn_method.name,
+    }))
   )
   const selection = selectedMove ? [selectedMove] : []
 

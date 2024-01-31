@@ -37,6 +37,11 @@ const MovesRow = ({ pokemonState, selectedMove, onPokemonStateChange }) => {
       {selectedMove ? (
         <>
           <td>
+            {selectedMove.learnMethod === 'machine'
+              ? 'TM/HM'
+              : `At Level ${selectedMove.level}`}
+          </td>
+          <td>
             <img
               className="type-icon"
               src={`/src/assets/types/${selectedMove.type.name}.png`}
@@ -106,6 +111,7 @@ const MovesRow = ({ pokemonState, selectedMove, onPokemonStateChange }) => {
           <td />
           <td />
           <td />
+          <td />
         </>
       )}
     </tr>
@@ -130,6 +136,8 @@ MovesRow.propTypes = {
     type: PropTypes.shape({
       name: PropTypes.string.isRequired,
     }).isRequired,
+    learnMethod: PropTypes.string.isRequired,
+    level: PropTypes.number,
   }),
   onPokemonStateChange: PropTypes.func.isRequired,
 }
