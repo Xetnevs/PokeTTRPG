@@ -6,6 +6,7 @@ import { usePokedex } from 'src/Contexts/PokedexContext'
 import LoadingSpinner from 'src/LoadingSpinner'
 import SaveAllStateButton from 'src/SaveAllStateButton'
 import UploadAllButton from 'src/UploadAllButton'
+import MachineView from 'src/Views/MachineView'
 import PokemonView from 'src/Views/PokemonView'
 import ViewToggleButton from 'src/Views/ViewToggleButton'
 import { v4 as uuidv4 } from 'uuid'
@@ -18,6 +19,7 @@ const PokeApp = () => {
   )
   const [isCaught, setIsCaught] = useState(false)
   const [partyPokemon, setPartyPokemon] = useState({ [uuidv4()]: {} })
+  const [machines, setMachines] = useState({ [uuidv4()]: {} })
   const [activeView, setActiveView] = useState('poke')
 
   useEffect(() => {
@@ -48,7 +50,10 @@ const PokeApp = () => {
               setPartyPokemon={setPartyPokemon}
             />
           ) : (
-            <div />
+            <MachineView
+              machineState={machines}
+              setMachineState={setMachines}
+            />
           )}
           <div className="footer">
             <SaveAllStateButton partyPokemon={partyPokemon} />

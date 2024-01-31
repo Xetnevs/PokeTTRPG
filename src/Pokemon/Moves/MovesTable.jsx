@@ -3,8 +3,6 @@ import 'src/Pokemon/Moves/moves.css'
 import PropTypes from 'prop-types'
 import MovesRow from 'src/Pokemon/Moves/MovesRow.jsx'
 
-//TODO Add Row for Level Learned or Machine
-
 const MovesTable = ({ pokemonState, onPokemonStateChange }) => {
   const wrappedOnStateChange = index => state => {
     const selectedMoves = [...(pokemonState.selectedMoves || [])]
@@ -64,8 +62,9 @@ const MovesTable = ({ pokemonState, onPokemonStateChange }) => {
 }
 
 MovesTable.propTypes = {
-  pokemonState: PropTypes.object.isRequired,
-  'pokemonState.selectedMoves': PropTypes.arrayOf(PropTypes.object),
+  pokemonState: PropTypes.shape({
+    selectedMoves: PropTypes.arrayOf(PropTypes.object),
+  }).isRequired,
   onPokemonStateChange: PropTypes.func.isRequired,
 }
 

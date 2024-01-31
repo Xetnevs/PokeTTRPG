@@ -1,5 +1,6 @@
 import { compact } from 'lodash'
 import PropTypes from 'prop-types'
+import { useEffect, useState } from 'react'
 import { Typeahead } from 'react-bootstrap-typeahead'
 import { usePokedex } from 'src/Contexts/PokedexContext'
 
@@ -8,6 +9,7 @@ const MoveSelector = ({
   pokemonState: { species, selectedVariety },
   onPokemonStateChange,
 }) => {
+  const [selected, setSelected] = useState([])
   const Pokedex = usePokedex()
 
   const movesList = compact(
@@ -17,7 +19,12 @@ const MoveSelector = ({
       learnMethod: move.learn_method.name,
     }))
   )
-  const selection = selectedMove ? [selectedMove] : []
+
+  useEffect(() => {
+    if (selectedMove) {
+      setSelected([selectedMove])
+    }
+  }, [selectedMove])
 
   return (
     <Typeahead
@@ -26,11 +33,14 @@ const MoveSelector = ({
       id="MoveSelector"
       clearButton
       onChange={move => {
-        onPokemonStateChange(move)
+        setSelected(move)
+        if (move?.length) {
+          onPokemonStateChange(move)
+        }
       }}
       options={movesList || []}
       placeholder="Show me your moves"
-      selected={selection || []}
+      selected={selected || []}
     />
   )
 }
