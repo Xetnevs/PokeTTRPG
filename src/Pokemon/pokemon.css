@@ -1,11 +1,12 @@
 .pokemon-card {
   border: 2px solid black;
   border-radius: 10px;
-  padding: 10px;
+  padding: 23px 23px 10px 10px;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   min-width: 900px;
   margin-bottom: 20px;
+  position: relative;
 }
 
 .right-hand-block {
@@ -21,8 +22,15 @@
   max-width: 40ch;
 }
 
+.names-container:has( > .none-selected) {
+  max-width: none;
+  margin: 0px;
+  grid-column: span 3;
+}
+
 .save-upload-container {
   grid-column: span 3;
   display: flex;
   justify-content: flex-end;
+  margin-right: -22px;
 }

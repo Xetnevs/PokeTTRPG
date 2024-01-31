@@ -1,0 +1,23 @@
+.remove-button img {
+  height: 15px;
+}
+
+.remove-button {
+  padding: 0px;
+  background-color: #efefef;
+  transition: background-color 0.3s ease;
+  margin-top: 1px;
+  margin-right: 1px;
+
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.remove-button:active {
+  background-color: #b0b0b0;
+}
+
+.remove-button:hover:not(:active) {
+  background-color: #d0d0d0;
+}

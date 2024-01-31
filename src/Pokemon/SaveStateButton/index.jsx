@@ -10,7 +10,7 @@ const getActivePokemonConfig = (pokemonState, customConfig) => {
   const pokemonCustom = foundPokemon
     ? { [pokemonState?.species?.id]: foundPokemon }
     : {}
-  const movesCustom = pokemonState.selectedMoves.reduce((acc, move) => {
+  const movesCustom = pokemonState.selectedMoves?.reduce((acc, move) => {
     const foundMove = customConfig.moves?.[move.id]
     return foundMove ? { ...acc, [move.id]: foundMove } : { ...acc }
   }, {})

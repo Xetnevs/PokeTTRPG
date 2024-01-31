@@ -10,3 +10,15 @@
   font-size: 0.9em;
   display: inline-block;
 }
+
+.none-selected > .name-label {
+ display: none;
+}
+
+.none-selected input {
+  text-align: center;
+}
+
+.choose-image {
+  width: 100%;
+}

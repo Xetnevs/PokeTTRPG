@@ -46,7 +46,13 @@ const PokemonSelector = ({
 
   return (
     <>
-      <div>
+      <div className={!species ? 'none-selected' : ''}>
+        {!species && (
+          <img
+            className="choose-image"
+            src="src/Assets/Whos-that-Pokemon.png"
+          />
+        )}
         <span className="name-label">Species:</span>
         <Typeahead
           clearButton
@@ -55,7 +61,7 @@ const PokemonSelector = ({
           labelKey="name"
           onChange={getSelectedPokemonData}
           options={values(Pokedex.pokemonData.species) || []}
-          placeholder="Who's that Pokemon?!"
+          placeholder="I Choose You!"
           selected={selected}
         />
       </div>
