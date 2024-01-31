@@ -1,0 +1,10 @@
+.machines-card {
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 23px 23px 10px 10px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  min-width: 900px;
+  margin-bottom: 20px;
+  position: relative;
+}

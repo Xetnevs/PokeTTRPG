@@ -1,0 +1,99 @@
+.machines-card {
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 23px 23px 10px 10px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  min-width: 900px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.machines-container {
+  grid-column: span 3;
+}
+
+.machines-table {
+  width: 100%;
+}
+
+.machines-table-header {
+  background: black;
+  color: white;
+  font-size: 0.7em;
+}
+
+.machines-table tbody td {
+  border: 1px black dashed;
+  border-top: none;
+  font-size: 0.7em;
+}
+
+.machines-table-header th {
+  border: 1px white dashed;
+  border-top: none;
+  border-bottom: none;
+}
+
+.machines-table-header th:first-child {
+  border-left: 1px black solid;
+}
+
+.machines-table-header th:last-child {
+  border-right: 1px black solid;
+}
+
+.machine-input {
+  max-width: 20ch;
+}
+
+.machine-input input {
+  font-size: 1em;
+}
+.machine-input .dropdown-item {
+  font-size: 0.8em;
+}
+
+.machines-table textarea {
+  resize: both;
+}
+
+.machine-moveDescription-text {
+  width: 100%;
+}
+
+.machine-range-text {
+  width: 7ch;
+}
+
+.machine-accuracy-text {
+  width: 6ch;
+}
+
+.machine-power-text,
+.machine-pp-text {
+  width: 3ch;
+}
+
+.machines-table .type-icon {
+  margin-bottom: 0px;
+  height: 15px;
+}
+
+.machine-revert-button img {
+  height: 15px;
+}
+
+.machine-revert-button {
+  padding: 0px;
+  background-color: #efefef;
+  transition: background-color 0.3s ease;
+  margin-top: 5px;
+}
+
+.machine-revert-button:active {
+  background-color: #b0b0b0;
+}
+.machine-revert-button:hover:not(:active) {
+  background-color: #d0d0d0;
+}
