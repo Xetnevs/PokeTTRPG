@@ -35,7 +35,11 @@ const MachineRow = ({ machine, onMachineStateChange }) => {
           {machine.damage_class.name !== 'status' && (
             <>
               <td>
-                <MachineEditableCell machine={machine} moveAttribute="power" type="number"/>
+                <MachineEditableCell
+                  machine={machine}
+                  moveAttribute="power"
+                  type="number"
+                />
               </td>
             </>
           )}
@@ -46,7 +50,11 @@ const MachineRow = ({ machine, onMachineStateChange }) => {
             />
           </td>
           <td>
-            <MachineEditableCell machine={machine} moveAttribute="pp" type="number"/>
+            <MachineEditableCell
+              machine={machine}
+              moveAttribute="pp"
+              type="number"
+            />
           </td>
           <td className="hide-on-print">
             <button

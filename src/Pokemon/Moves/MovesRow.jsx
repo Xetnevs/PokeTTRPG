@@ -7,7 +7,8 @@ import { sanitizeString } from 'src/utils.js'
 const checkIsStab = (moveType, pokemon) =>
   pokemon.types.find(type => type === moveType)
 
-const getBasePower = (selectedMove, customConfig) => parseInt(customConfig.moves?.[selectedMove.id]?.power || selectedMove.power)
+const getBasePower = (selectedMove, customConfig) =>
+  parseInt(customConfig.moves?.[selectedMove.id]?.power || selectedMove.power)
 
 const MovesRow = ({ pokemonState, selectedMove, onPokemonStateChange }) => {
   const [customConfig, updateCustomConfig] = useCustomConfig()
@@ -24,7 +25,10 @@ const MovesRow = ({ pokemonState, selectedMove, onPokemonStateChange }) => {
       )
     : false
   const totalPower = selectedMove
-    ? Math.floor((getBasePower(selectedMove, customConfig) + statPoints) * (isStab ? 1.5 : 1))
+    ? Math.floor(
+        (getBasePower(selectedMove, customConfig) + statPoints) *
+          (isStab ? 1.5 : 1)
+      )
     : 0
 
   return (
@@ -84,8 +88,11 @@ const MovesRow = ({ pokemonState, selectedMove, onPokemonStateChange }) => {
             />
           </td>
           <td>
-            <MoveEditableCell selectedMove={selectedMove} moveAttribute="pp"
-                  type="number" />
+            <MoveEditableCell
+              selectedMove={selectedMove}
+              moveAttribute="pp"
+              type="number"
+            />
           </td>
           <td className="hide-on-print">
             <button
