@@ -6,7 +6,7 @@ const AddPartyPokemonButton = ({ onClick }) => (
   <>
     <button className="party-increase-button" onClick={onClick}>
       <div className="drop-shadow">
-        <img src="src/assets/poke-plus.png" />
+        <img src="/poke-plus.png" />
       </div>
     </button>
   </>

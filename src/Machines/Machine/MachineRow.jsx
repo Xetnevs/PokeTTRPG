@@ -21,7 +21,7 @@ const MachineRow = ({ machine, onMachineStateChange }) => {
           <td>
             <img
               className="type-icon"
-              src={`/src/assets/types/${machine.type.name}.png`}
+              src={`/types/${machine.type.name}.png`}
               key={machine.type.name}
             />
           </td>
@@ -59,7 +59,7 @@ const MachineRow = ({ machine, onMachineStateChange }) => {
                 })
               }
             >
-              <img src="src/assets/undo.png" />
+              <img src="/undo.png" />
             </button>
           </td>
           <td className="hide-on-print">
@@ -67,7 +67,7 @@ const MachineRow = ({ machine, onMachineStateChange }) => {
               className="remove-machine-button"
               onClick={() => onMachineStateChange(undefined)}
             >
-              <img src="src/assets/trash.svg" />
+              <img src="/trash.svg" />
             </button>
           </td>
         </>

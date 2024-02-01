@@ -66,7 +66,7 @@ const PokemonAbility = ({
             })
           }
         >
-          <img src="src/assets/undo.png" />
+          <img src="/undo.png" />
         </button>
       </div>
     </div>

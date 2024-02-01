@@ -44,7 +44,7 @@ const MovesRow = ({ pokemonState, selectedMove, onPokemonStateChange }) => {
           <td>
             <img
               className="type-icon"
-              src={`/src/assets/types/${selectedMove.type.name}.png`}
+              src={`/types/${selectedMove.type.name}.png`}
               key={selectedMove.type.name}
             />
           </td>
@@ -94,7 +94,7 @@ const MovesRow = ({ pokemonState, selectedMove, onPokemonStateChange }) => {
                 })
               }
             >
-              <img src="src/assets/undo.png" />
+              <img src="/undo.png" />
             </button>
           </td>
         </>

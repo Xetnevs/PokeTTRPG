@@ -49,7 +49,7 @@ const SaveStateButton = ({ pokemonState }) => {
             })
           }
         >
-          <img src="src/assets/save.svg" />
+          <img src="/save.svg" />
         </button>
       )}
     </>
