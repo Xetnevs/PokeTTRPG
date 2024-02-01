@@ -1,8 +1,11 @@
-# React + Vite
+# PokeTTRPG
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A quick app built using PokeAPI to help mates and I build character sheets for a PokeTTRPG.
 
-Currently, two official plugins are available:
+# Running Locally
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+`npm run dev`
+
+Should be good assuming you've run install first
+
+Pls no judge for still being too lazy to learn typescript
