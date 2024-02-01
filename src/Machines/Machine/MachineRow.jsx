@@ -48,7 +48,7 @@ const MachineRow = ({ machine, onMachineStateChange }) => {
           <td>
             <MachineEditableCell machine={machine} moveAttribute="pp" />
           </td>
-          <td>
+          <td className="hide-on-print">
             <button
               className="machine-revert-button"
               onClick={() =>
@@ -62,7 +62,7 @@ const MachineRow = ({ machine, onMachineStateChange }) => {
               <img src="src/assets/undo.png" />
             </button>
           </td>
-          <td>
+          <td className="hide-on-print">
             <button
               className="remove-machine-button"
               onClick={() => onMachineStateChange(undefined)}
@@ -80,8 +80,8 @@ const MachineRow = ({ machine, onMachineStateChange }) => {
           <td />
           <td />
           <td />
-          <td />
-          <td />
+          <td className="hide-on-print"/>
+          <td className="hide-on-print"/>
         </>
       )}
     </tr>

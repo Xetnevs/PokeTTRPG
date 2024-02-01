@@ -17,3 +17,17 @@ span.rbt-close-content {
   margin-top: 20px;
   margin-bottom: 20px;
 }
+
+
+@media print {
+  .footer, .header, .hide-on-print, .rbt-aux {
+    display:  none !important;
+  }
+  textarea {
+    border:  none !important;
+    resize: none !important;
+  }
+  input {
+    border:  none !important;
+  }
+}

@@ -24,7 +24,7 @@ const PokemonView = ({ partyPokemon, setPartyPokemon }) => {
           )
       )}
 
-      <div className="party-increase-button-container">
+      <div className="party-increase-button-container hide-on-print">
         <AddPartyPokemonButton
           onClick={() => setPartyPokemon({ ...partyPokemon, [uuidv4()]: {} })}
         />

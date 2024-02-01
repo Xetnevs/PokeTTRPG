@@ -69,7 +69,7 @@ const Pokemon = ({ pokemonState, setPokemonState }) => {
           />
         </>
       )}
-      <div className="save-upload-container">
+      <div className="save-upload-container hide-on-print">
         <SaveStateButton
           pokemonState={pokemonState}
           onPokemonStateChange={setPokemonState}

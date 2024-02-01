@@ -22,8 +22,8 @@ const Machines = ({ machineState, onMachineStateChange }) => {
             <th>Base</th>
             <th>Move Bonus</th>
             <th>PP</th>
-            <th></th>
-            <th></th>
+            <th className="hide-on-print"></th>
+            <th className="hide-on-print"></th>
           </tr>
         </thead>
         <tbody>
