@@ -109,7 +109,7 @@ const PokemonStats = ({ pokemonState, onPokemonStateChange }) => {
         onChange={e => onPokemonStateChange({ size: e.target.value })}
       />
 
-      <div className="stats-button-container">
+      <div className="stats-button-container hide-on-print">
         <button
           className="stats-revert-button"
           onClick={() =>

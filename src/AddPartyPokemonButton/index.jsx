@@ -4,11 +4,11 @@ import PropTypes from 'prop-types'
 
 const AddPartyPokemonButton = ({ onClick }) => (
   <>
-      <button className="party-increase-button" onClick={onClick}>
-        <div className="drop-shadow">
-          <img src="src/assets/poke-plus.png" />
-        </div>
-      </button>
+    <button className="party-increase-button" onClick={onClick}>
+      <div className="drop-shadow">
+        <img src="src/assets/poke-plus.png" />
+      </div>
+    </button>
   </>
 )
 

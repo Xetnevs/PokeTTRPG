@@ -25,7 +25,7 @@ const StatBlock = ({
       disabled={disabled}
       max={max}
     />
-    {children && <span className="stat-info">{children}</span>}
+    {children && <span className="stat-info hide-on-print">{children}</span>}
   </div>
 )
 

@@ -83,7 +83,7 @@ const MovesRow = ({ pokemonState, selectedMove, onPokemonStateChange }) => {
           <td>
             <MoveEditableCell selectedMove={selectedMove} moveAttribute="pp" />
           </td>
-          <td>
+          <td className="hide-on-print">
             <button
               className="moves-revert-button"
               onClick={() =>
@@ -111,7 +111,7 @@ const MovesRow = ({ pokemonState, selectedMove, onPokemonStateChange }) => {
           <td />
           <td />
           <td />
-          <td />
+          <td className="hide-on-print" />
         </>
       )}
     </tr>

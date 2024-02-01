@@ -39,7 +39,7 @@ const MachineRow = ({ machine, onMachineStateChange }) => {
               </td>
             </>
           )}
-          <td colSpan={machine.damage_class.name === 'status' ? 5 : 1}>
+          <td colSpan={machine.damage_class.name === 'status' ? 2 : 1}>
             <MachineEditableCell
               machine={machine}
               moveAttribute="moveDescription"
@@ -80,8 +80,8 @@ const MachineRow = ({ machine, onMachineStateChange }) => {
           <td />
           <td />
           <td />
-          <td className="hide-on-print"/>
-          <td className="hide-on-print"/>
+          <td className="hide-on-print" />
+          <td className="hide-on-print" />
         </>
       )}
     </tr>

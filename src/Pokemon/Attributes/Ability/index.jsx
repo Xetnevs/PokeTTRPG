@@ -55,7 +55,7 @@ const PokemonAbility = ({
           })
         }}
       />
-      <div className="ability-button-container">
+      <div className="ability-button-container hide-on-print">
         <button
           className="ability-revert-button"
           onClick={() =>
@@ -86,7 +86,7 @@ PokemonAbility.propTypes = {
         })
       ).isRequired,
     }).isRequired,
-    selectedAbility: PropTypes.number,
+    selectedAbility: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     selectedVariety: PropTypes.number.isRequired,
   }).isRequired,
   onPokemonStateChange: PropTypes.func.isRequired,

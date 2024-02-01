@@ -31,7 +31,7 @@ const MovesTable = ({ pokemonState, onPokemonStateChange }) => {
             <th>= Total</th>
             <th>Move Bonus</th>
             <th>PP</th>
-            <th></th>
+            <th className="hide-on-print"></th>
           </tr>
         </thead>
         <tbody>

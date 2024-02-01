@@ -44,7 +44,7 @@ const Evolution = ({ pokemonState: { species, selectedVariety } }) => {
         }}
       />
 
-      <div className="evolution-button-container">
+      <div className="evolution-button-container hide-on-print">
         <button
           className="evolution-revert-button"
           onClick={() =>

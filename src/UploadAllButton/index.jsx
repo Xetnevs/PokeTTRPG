@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import ReactFileReader from 'react-file-reader'
 import { useCustomConfig } from 'src/Contexts/CustomConfigContext'
 
-const UploadAllButton = ({ setPartyPokemon }) => {
+const UploadAllButton = ({ setPartyPokemon, setMachines }) => {
   const [_, updateCustomConfig] = useCustomConfig()
   return (
     <ReactFileReader
@@ -16,6 +16,7 @@ const UploadAllButton = ({ setPartyPokemon }) => {
             .then(JSON.parse)
             .then(res => {
               setPartyPokemon(res.partyPokemon)
+              setMachines(res.machines)
               updateCustomConfig(res.customConfig)
             })
         }
@@ -28,6 +29,7 @@ const UploadAllButton = ({ setPartyPokemon }) => {
 
 UploadAllButton.propTypes = {
   setPartyPokemon: PropTypes.func.isRequired,
+  setMachines: PropTypes.func.isRequired,
 }
 
 export default UploadAllButton

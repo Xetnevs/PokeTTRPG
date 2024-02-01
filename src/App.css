@@ -30,4 +30,26 @@ span.rbt-close-content {
   input {
     border:  none !important;
   }
+  .ability-name {
+      appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: '';
+      border: none;
+    border-bottom: 1px solid black;
+    font-weight: bold;
+  }
+
+  .stat-input {
+        color: black;
+    background-color: transparent;
+  }
+  .double-row {
+    grid-row: span 1 !important;
+  }
+
+  .name-input, .nickname-input, .trainer-input {
+    border: 1px solid black !important;
+  }
 }

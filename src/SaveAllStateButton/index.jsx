@@ -1,11 +1,11 @@
 import 'src/SaveAllStateButton/saveAll.css'
 
 import exportFromJSON from 'export-from-json'
-import { filter } from 'lodash'
+import { isEmpty, omitBy } from 'lodash'
 import PropTypes from 'prop-types'
 import { useCustomConfig } from 'src/Contexts/CustomConfigContext'
 
-const SaveAllStateButton = ({ partyPokemon }) => {
+const SaveAllStateButton = ({ partyPokemon, machines }) => {
   const [customConfig, _] = useCustomConfig()
   return (
     <button
@@ -13,7 +13,8 @@ const SaveAllStateButton = ({ partyPokemon }) => {
       onClick={() =>
         exportFromJSON({
           data: {
-            partyPokemon: filter(partyPokemon, val => !!val),
+            partyPokemon: omitBy(partyPokemon, isEmpty),
+            machines: omitBy(machines, isEmpty),
             customConfig: customConfig,
           },
           fileName: 'poke-all',
@@ -28,6 +29,7 @@ const SaveAllStateButton = ({ partyPokemon }) => {
 
 SaveAllStateButton.propTypes = {
   partyPokemon: PropTypes.objectOf(PropTypes.object).isRequired,
+  machines: PropTypes.objectOf(PropTypes.object).isRequired,
 }
 
 export default SaveAllStateButton

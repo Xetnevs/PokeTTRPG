@@ -56,8 +56,14 @@ const PokeApp = () => {
             />
           )}
           <div className="footer">
-            <SaveAllStateButton partyPokemon={partyPokemon} />
-            <UploadAllButton setPartyPokemon={setPartyPokemon} />
+            <SaveAllStateButton
+              partyPokemon={partyPokemon}
+              machines={machines}
+            />
+            <UploadAllButton
+              setPartyPokemon={setPartyPokemon}
+              setMachines={setMachines}
+            />
           </div>
         </>
       ) : (
