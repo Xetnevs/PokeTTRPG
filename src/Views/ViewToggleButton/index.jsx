@@ -13,10 +13,10 @@ const ViewToggleButton = ({ activeView, setActiveView }) => {
       onChange={(_, value) => setActiveView(value)}
     >
       <ToggleButton value="poke">
-        <img className="poke-image" src="/poke.png" />
+        <img className="poke-image" src="/poke/assets/poke.png" />
       </ToggleButton>
       <ToggleButton value="machine">
-        <img className="machine-image" src="/machine.png" />
+        <img className="machine-image" src="/poke/assets/machine.png" />
       </ToggleButton>
     </ToggleButtonGroup>
   )

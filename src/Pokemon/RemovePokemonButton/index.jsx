@@ -7,7 +7,7 @@ const RemovePokemonButton = ({ onPokemonStateChange }) => (
     className="remove-button"
     onClick={() => onPokemonStateChange(undefined)}
   >
-    <img src="/trash.svg" />
+    <img src="/poke/assets/trash.svg" />
   </button>
 )
 

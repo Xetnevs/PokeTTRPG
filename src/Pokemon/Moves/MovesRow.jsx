@@ -7,8 +7,10 @@ import { sanitizeString } from 'src/utils.js'
 const checkIsStab = (moveType, pokemon) =>
   pokemon.types.find(type => type === moveType)
 
+const getBasePower = (selectedMove, customConfig) => parseInt(customConfig.moves?.[selectedMove.id]?.power || selectedMove.power)
+
 const MovesRow = ({ pokemonState, selectedMove, onPokemonStateChange }) => {
-  const [_, updateCustomConfig] = useCustomConfig()
+  const [customConfig, updateCustomConfig] = useCustomConfig()
 
   const statPoints = selectedMove
     ? selectedMove.damage_class.name.toUpperCase() === 'SPECIAL'
@@ -22,7 +24,7 @@ const MovesRow = ({ pokemonState, selectedMove, onPokemonStateChange }) => {
       )
     : false
   const totalPower = selectedMove
-    ? Math.floor((selectedMove.power + statPoints) * (isStab ? 1.5 : 1))
+    ? Math.floor((getBasePower(selectedMove, customConfig) + statPoints) * (isStab ? 1.5 : 1))
     : 0
 
   return (
@@ -44,7 +46,7 @@ const MovesRow = ({ pokemonState, selectedMove, onPokemonStateChange }) => {
           <td>
             <img
               className="type-icon"
-              src={`/types/${selectedMove.type.name}.png`}
+              src={`/poke/assets/types/${selectedMove.type.name}.png`}
               key={selectedMove.type.name}
             />
           </td>
@@ -67,6 +69,7 @@ const MovesRow = ({ pokemonState, selectedMove, onPokemonStateChange }) => {
                 <MoveEditableCell
                   selectedMove={selectedMove}
                   moveAttribute="power"
+                  type="number"
                 />
               </td>
               <td>{statPoints}</td>
@@ -81,7 +84,8 @@ const MovesRow = ({ pokemonState, selectedMove, onPokemonStateChange }) => {
             />
           </td>
           <td>
-            <MoveEditableCell selectedMove={selectedMove} moveAttribute="pp" />
+            <MoveEditableCell selectedMove={selectedMove} moveAttribute="pp"
+                  type="number" />
           </td>
           <td className="hide-on-print">
             <button
@@ -94,7 +98,7 @@ const MovesRow = ({ pokemonState, selectedMove, onPokemonStateChange }) => {
                 })
               }
             >
-              <img src="/undo.png" />
+              <img src="/poke/assets/undo.png" />
             </button>
           </td>
         </>

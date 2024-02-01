@@ -123,7 +123,7 @@ const PokemonStats = ({ pokemonState, onPokemonStateChange }) => {
             })
           }
         >
-          <img src="/undo.png" />
+          <img src="/poke/assets/undo.png" />
         </button>
       </div>
     </div>

@@ -2,10 +2,14 @@ import PropTypes from 'prop-types'
 import AutoHeightTextArea from 'src/AutoHeightTextArea'
 import { useCustomConfig } from 'src/Contexts/CustomConfigContext'
 
-const MachineEditableCell = ({ machine, moveAttribute }) => {
+const InputWrapper = ({children, ...props}) => (<input {...props} type="number" step="1">{children}</input>)
+
+const MachineEditableCell = ({ machine, moveAttribute, type="text" }) => {
   const [customConfig, updateCustomConfig] = useCustomConfig()
+  const Component = type === 'number' ? InputWrapper : AutoHeightTextArea
+
   return (
-    <AutoHeightTextArea
+    <Component
       className={`machine-${moveAttribute}-text`}
       value={
         customConfig.moves?.[machine.id]?.[moveAttribute] ||
@@ -30,6 +34,7 @@ MachineEditableCell.propTypes = {
     id: PropTypes.number.isRequired,
   }).isRequired,
   moveAttribute: PropTypes.string.isRequired,
+  type: PropTypes.string
 }
 
 export default MachineEditableCell

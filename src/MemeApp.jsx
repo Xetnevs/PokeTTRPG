@@ -2,7 +2,7 @@ import 'src/App.css'
 
 const MemeApp = () => (
   <>
-    <img className="meme" src="/meme.jpg" />
+    <img className="meme" src="/poke/assets/meme.jpg" />
   </>
 )
 

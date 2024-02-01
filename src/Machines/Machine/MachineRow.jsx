@@ -21,7 +21,7 @@ const MachineRow = ({ machine, onMachineStateChange }) => {
           <td>
             <img
               className="type-icon"
-              src={`/types/${machine.type.name}.png`}
+              src={`/poke/assets/types/${machine.type.name}.png`}
               key={machine.type.name}
             />
           </td>
@@ -35,7 +35,7 @@ const MachineRow = ({ machine, onMachineStateChange }) => {
           {machine.damage_class.name !== 'status' && (
             <>
               <td>
-                <MachineEditableCell machine={machine} moveAttribute="power" />
+                <MachineEditableCell machine={machine} moveAttribute="power" type="number"/>
               </td>
             </>
           )}
@@ -46,7 +46,7 @@ const MachineRow = ({ machine, onMachineStateChange }) => {
             />
           </td>
           <td>
-            <MachineEditableCell machine={machine} moveAttribute="pp" />
+            <MachineEditableCell machine={machine} moveAttribute="pp" type="number"/>
           </td>
           <td className="hide-on-print">
             <button
@@ -59,7 +59,7 @@ const MachineRow = ({ machine, onMachineStateChange }) => {
                 })
               }
             >
-              <img src="/undo.png" />
+              <img src="/poke/assets/undo.png" />
             </button>
           </td>
           <td className="hide-on-print">
@@ -67,7 +67,7 @@ const MachineRow = ({ machine, onMachineStateChange }) => {
               className="remove-machine-button"
               onClick={() => onMachineStateChange(undefined)}
             >
-              <img src="/trash.svg" />
+              <img src="/poke/assets/trash.svg" />
             </button>
           </td>
         </>

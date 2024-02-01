@@ -41,7 +41,7 @@ const PokemonType = ({ pokemonState: { species, selectedVariety } }) => {
           {species.varieties[selectedVariety].types.map(type => (
             <img
               className="type-icon"
-              src={`/types/${type}.png`}
+              src={`/poke/assets/types/${type}.png`}
               key={type}
             />
           ))}

@@ -51,7 +51,7 @@ const PokemonSelector = ({
         {!species && (
           <img
             className="choose-image"
-            src="/Whos-that-Pokemon.png"
+            src="/poke/assets/Whos-that-Pokemon.png"
           />
         )}
         <span className="name-label">Species:</span>
