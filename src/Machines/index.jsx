@@ -23,16 +23,21 @@ const Machines = ({ machineState, onMachineStateChange }) => {
             <th>Move Bonus</th>
             <th>PP</th>
             <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
-          {map(machineState, (machine, id) => (
-            <MachineRow
-              key={id}
-              machine={machine}
-              onMachineStateChange={wrappedOnStateChange(id)}
-            />
-          ))}
+          {map(
+            machineState,
+            (machine, id) =>
+              machine && (
+                <MachineRow
+                  key={id}
+                  machine={machine}
+                  onMachineStateChange={wrappedOnStateChange(id)}
+                />
+              )
+          )}
         </tbody>
       </table>
     </div>

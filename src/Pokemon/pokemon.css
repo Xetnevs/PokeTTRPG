@@ -22,7 +22,7 @@
   max-width: 40ch;
 }
 
-.names-container:has( > .none-selected) {
+.names-container:has(> .none-selected) {
   max-width: none;
   margin: 0px;
   grid-column: span 3;

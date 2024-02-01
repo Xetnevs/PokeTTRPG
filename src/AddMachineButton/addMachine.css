@@ -1,9 +1,9 @@
-.party-increase-button img {
-  height: 60px;
+.add-machine-button img {
+  height: 40px;
   transition: filter 0.3s ease;
 }
 
-.party-increase-button {
+.add-machine-button {
   padding: 0px;
   background-color: transparent;
   transition: background-color 0.3s ease;
@@ -11,10 +11,10 @@
   border: none;
 }
 
-.party-increase-button img:active {
+.add-machine-button img:active {
   filter: brightness(80%);
 }
-.party-increase-button:hover:not(:active) {
+.add-machine-button:hover:not(:active) {
   filter: brightness(60%);
 }
 

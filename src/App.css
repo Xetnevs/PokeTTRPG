@@ -10,9 +10,10 @@ span.rbt-close-content {
   display: none;
 }
 
-.footer, .header{
-      display: flex;
-    justify-content: flex-end;
-    margin-top: 20px;
-    margin-bottom: 20px;
+.footer,
+.header {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }

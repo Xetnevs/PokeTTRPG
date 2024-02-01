@@ -55,7 +55,7 @@ const Evolution = ({ pokemonState: { species, selectedVariety } }) => {
             })
           }
         >
-          <img src="src/Assets/undo.png" />
+          <img src="src/assets/undo.png" />
         </button>
       </div>
     </div>

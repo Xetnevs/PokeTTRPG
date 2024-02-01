@@ -8,3 +8,8 @@
   margin-bottom: 20px;
   position: relative;
 }
+
+.add-machine-button-container {
+  display: flex;
+  justify-content: flex-end;
+}

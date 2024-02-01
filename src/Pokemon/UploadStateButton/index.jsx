@@ -22,7 +22,7 @@ const UploadStateButton = ({ onPokemonStateChange }) => {
       }}
     >
       <button className="upload-button">
-        <img src="src/Assets/upload.svg" />
+        <img src="src/assets/upload.svg" />
       </button>
     </ReactFileReader>
   )

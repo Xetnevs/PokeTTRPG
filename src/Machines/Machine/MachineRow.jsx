@@ -59,12 +59,21 @@ const MachineRow = ({ machine, onMachineStateChange }) => {
                 })
               }
             >
-              <img src="src/Assets/undo.png" />
+              <img src="src/assets/undo.png" />
+            </button>
+          </td>
+          <td>
+            <button
+              className="remove-machine-button"
+              onClick={() => onMachineStateChange(undefined)}
+            >
+              <img src="src/assets/trash.svg" />
             </button>
           </td>
         </>
       ) : (
         <>
+          <td />
           <td />
           <td />
           <td />

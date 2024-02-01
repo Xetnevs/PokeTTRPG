@@ -97,3 +97,23 @@
 .machine-revert-button:hover:not(:active) {
   background-color: #d0d0d0;
 }
+
+.remove-machine-button img {
+  height: 15px;
+}
+
+.remove-machine-button {
+  padding: 0px;
+  background-color: #efefef;
+  transition: background-color 0.3s ease;
+  margin-top: 1px;
+  margin-right: 1px;
+}
+
+.remove-machine-button:active {
+  background-color: #b0b0b0;
+}
+
+.remove-machine-button:hover:not(:active) {
+  background-color: #d0d0d0;
+}
