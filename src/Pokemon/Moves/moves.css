@@ -60,8 +60,10 @@
   width: 6ch;
 }
 
-.move-name, .move-learn-method {
+.move-name, .move-learn-method, .move-pp-text  {
   white-space: nowrap;
+  padding-left: 3px;
+  padding-right: 3px;
 }
 
 .move-power-text,

@@ -69,6 +69,7 @@
 
 .machine-name {
   white-space: nowrap;
+  padding: 2px;
 }
 
 .machine-accuracy-text {
