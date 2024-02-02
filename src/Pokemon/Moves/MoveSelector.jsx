@@ -26,9 +26,8 @@ const MoveSelector = ({
     }
   }, [selectedMove])
 
-
   useEffect(() => {
-      setSelected([])
+    setSelected([])
   }, [species, selectedVariety])
 
   return (
