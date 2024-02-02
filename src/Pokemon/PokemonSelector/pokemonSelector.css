@@ -15,10 +15,6 @@
   display: none;
 }
 
-.none-selected input {
-  text-align: center;
-}
-
 .choose-image {
   width: 70%;
 }
