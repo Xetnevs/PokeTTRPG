@@ -22,8 +22,11 @@ const MachineEditableCell = ({ machine, moveAttribute, type = 'text' }) => {
       }
       onChange={e => {
         updateCustomConfig({
+          ...customConfig,
           moves: {
-            [machine.id]: {
+            ...customConfig.moves,
+            [selectedMove.id]: {
+              ...(customConfig?.moves?.[selectedMove.id] || {}),
               [moveAttribute]: e.target.value,
             },
           },

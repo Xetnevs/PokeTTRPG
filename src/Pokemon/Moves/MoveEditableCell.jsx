@@ -21,8 +21,11 @@ const MoveEditableCell = ({ selectedMove, moveAttribute, type = 'text' }) => {
       }
       onChange={e => {
         updateCustomConfig({
+          ...customConfig,
           moves: {
+            ...customConfig.moves,
             [selectedMove.id]: {
+              ...(customConfig?.moves?.[selectedMove.id] || {}),
               [moveAttribute]: e.target.value,
             },
           },
