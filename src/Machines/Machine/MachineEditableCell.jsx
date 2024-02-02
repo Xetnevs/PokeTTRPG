@@ -25,8 +25,8 @@ const MachineEditableCell = ({ machine, moveAttribute, type = 'text' }) => {
           ...customConfig,
           moves: {
             ...customConfig.moves,
-            [selectedMove.id]: {
-              ...(customConfig?.moves?.[selectedMove.id] || {}),
+            [machine.id]: {
+              ...(customConfig?.moves?.[machine.id] || {}),
               [moveAttribute]: e.target.value,
             },
           },

@@ -49,14 +49,20 @@ const mapPokemonData = pokemonData => ({
               sprites: variety.sprites[0].sprites,
               types: variety.types.map(({ type }) => type.name),
               moves: variety.moves.reduce((acc, value) => {
-                const found = acc.find(toFind => toFind.move_id === value.move_id)
-                if (found) {
-                  if (found.version_group_id > value.version_group_id) {
-                  return [...acc, value]
-                } else return [...acc]
-                } 
+                const foundIndex = acc.findIndex(
+                  toFind => toFind.move_id === value.move_id
+                )
+                if (foundIndex >= 0) {
+                  if (
+                    acc[foundIndex].version_group_id < value.version_group_id
+                  ) {
+                    const copy = [...acc]
+                    copy[foundIndex] = value
+                    return copy
+                  } else return [...acc]
+                }
                 return [...acc, value]
-              }, [])
+              }, []),
             },
           }),
           {}

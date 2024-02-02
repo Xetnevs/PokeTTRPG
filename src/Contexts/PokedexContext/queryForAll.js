@@ -30,8 +30,9 @@ export default `query queryForAll {
           id
         }
       }
-      moves: pokemon_v2_pokemonmoves(where: {_and: {version_group_id: {_eq: 25}, pokemon_v2_movelearnmethod: {_or: [{name: {_eq: "level-up"}}, {name: {_eq: "machine"}}]}}}) {
+      moves: pokemon_v2_pokemonmoves(where: {pokemon_v2_movelearnmethod: {_or: [{name: {_eq: "level-up"}}, {name: {_eq: "machine"}}]}}) {
         level
+        version_group_id
         learn_method: pokemon_v2_movelearnmethod {
           name
         }
