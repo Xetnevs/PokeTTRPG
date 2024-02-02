@@ -41,6 +41,7 @@ const PokemonSelector = ({
       onPokemonStateChange({
         species: selected[0],
         selectedVariety: pokemon[0].id,
+        stats: pokemon[0].base_stats,
       })
     }
   }
