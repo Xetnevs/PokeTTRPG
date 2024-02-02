@@ -23,6 +23,8 @@ const MoveSelector = ({
   useEffect(() => {
     if (selectedMove) {
       setSelected([selectedMove])
+    } else {
+      setSelected([])
     }
   }, [selectedMove])
 

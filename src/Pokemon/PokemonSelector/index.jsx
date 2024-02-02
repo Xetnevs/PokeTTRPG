@@ -32,7 +32,7 @@ const PokemonSelector = ({
         species: pokemon[0],
         selectedVariety: defaultVarietyId,
         stats: pokemon[0].varieties[defaultVarietyId].base_stats,
-        selectedMoves: []
+        selectedMoves: [],
       })
     }
   }
@@ -43,7 +43,7 @@ const PokemonSelector = ({
         species: selected[0],
         selectedVariety: pokemon[0].id,
         stats: pokemon[0].base_stats,
-        selectedMoves: []
+        selectedMoves: [],
       })
     }
   }
