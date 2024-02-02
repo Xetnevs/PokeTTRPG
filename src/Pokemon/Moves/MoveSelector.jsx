@@ -26,6 +26,11 @@ const MoveSelector = ({
     }
   }, [selectedMove])
 
+
+  useEffect(() => {
+      setSelected([])
+  }, [species, selectedVariety])
+
   return (
     <Typeahead
       className="move-input"
