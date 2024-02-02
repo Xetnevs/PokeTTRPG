@@ -45,6 +45,7 @@
 
 .moves-table textarea {
   resize: both;
+  max-width: 500px;
 }
 
 .move-moveDescription-text {

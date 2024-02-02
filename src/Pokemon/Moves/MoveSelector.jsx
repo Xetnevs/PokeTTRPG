@@ -29,21 +29,24 @@ const MoveSelector = ({
   }, [selectedMove])
 
   return (
-    <Typeahead
-      className="move-input"
-      labelKey="name"
-      id="MoveSelector"
-      clearButton
-      onChange={move => {
-        setSelected(move)
-        if (move?.length) {
-          onPokemonStateChange(move)
-        }
-      }}
-      options={movesList || []}
-      placeholder="Show me your moves"
-      selected={selected || []}
-    />
+    <>
+      <Typeahead
+        className="move-input hide-on-print"
+        labelKey="name"
+        id="MoveSelector"
+        clearButton
+        onChange={move => {
+          setSelected(move)
+          if (move?.length) {
+            onPokemonStateChange(move)
+          }
+        }}
+        options={movesList || []}
+        placeholder="Show me your moves"
+        selected={selected || []}
+      />
+      <span className="move-name show-on-print">{selectedMove?.name}</span>
+    </>
   )
 }
 

@@ -18,6 +18,9 @@ span.rbt-close-content {
   margin-bottom: 20px;
 }
 
+.show-on-print {
+  display: none;
+}
 
 @media print {
   .footer, .header, .hide-on-print, .rbt-aux {
@@ -51,5 +54,8 @@ span.rbt-close-content {
 
   .name-input, .nickname-input, .trainer-input {
     border: 1px solid black !important;
+  }
+  .show-on-print {
+    display: initial !important;
   }
 }

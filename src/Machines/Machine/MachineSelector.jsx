@@ -21,21 +21,24 @@ const MachineSelector = ({ machine, onMachineStateChange }) => {
   }, [machine])
 
   return (
-    <Typeahead
-      className="machine-input"
-      labelKey="name"
-      id="MachineSelector"
-      clearButton
-      onChange={move => {
-        setSelected(move)
-        if (move?.length) {
-          onMachineStateChange(move[0])
-        }
-      }}
-      options={machines || []}
-      placeholder="Show me your moves"
-      selected={selected || []}
-    />
+    <>
+      <Typeahead
+        className="machine-input hide-on-print"
+        labelKey="name"
+        id="MachineSelector"
+        clearButton
+        onChange={move => {
+          setSelected(move)
+          if (move?.length) {
+            onMachineStateChange(move[0])
+          }
+        }}
+        options={machines || []}
+        placeholder="Show me your moves"
+        selected={selected || []}
+      />
+      <span className="move-name show-on-print">{machine?.name}</span>
+    </>
   )
 }
 

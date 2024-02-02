@@ -11,27 +11,33 @@ const InputWrapper = ({ children, ...props }) => (
 const MoveEditableCell = ({ selectedMove, moveAttribute, type = 'text' }) => {
   const [customConfig, updateCustomConfig] = useCustomConfig()
   const Component = type === 'number' ? InputWrapper : AutoHeightTextArea
+  const value =
+    customConfig.moves?.[selectedMove.id]?.[moveAttribute] ||
+    selectedMove[moveAttribute] ||
+    ''
   return (
-    <Component
-      className={`move-${moveAttribute}-text`}
-      value={
-        customConfig.moves?.[selectedMove.id]?.[moveAttribute] ||
-        selectedMove[moveAttribute] ||
-        ''
-      }
-      onChange={e => {
-        updateCustomConfig({
-          ...customConfig,
-          moves: {
-            ...customConfig.moves,
-            [selectedMove.id]: {
-              ...(customConfig?.moves?.[selectedMove.id] || {}),
-              [moveAttribute]: e.target.value,
+    <>
+      <Component
+        className={`move-${moveAttribute}-text hide-on-print`}
+        value={value}
+        onChange={e => {
+          updateCustomConfig({
+            ...customConfig,
+            moves: {
+              ...customConfig.moves,
+              [selectedMove.id]: {
+                ...(customConfig?.moves?.[selectedMove.id] || {}),
+                [moveAttribute]: e.target.value,
+              },
             },
-          },
-        })
-      }}
-    />
+          })
+        }}
+      />
+
+      <span className={`move-${moveAttribute}-text show-on-print`}>
+        {value}
+      </span>
+    </>
   )
 }
 
