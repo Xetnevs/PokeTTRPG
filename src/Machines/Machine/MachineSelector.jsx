@@ -36,6 +36,11 @@ const MachineSelector = ({ machine, onMachineStateChange }) => {
         options={machines || []}
         placeholder="Show me your moves"
         selected={selected || []}
+        inputProps={{
+          style: {
+            minWidth: machine ? `${machine.name.length + 6}ch` : 'auto',
+          },
+        }}
       />
       <span className="move-name show-on-print">{machine?.name}</span>
     </>

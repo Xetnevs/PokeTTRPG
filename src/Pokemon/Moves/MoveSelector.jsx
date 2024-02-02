@@ -44,6 +44,13 @@ const MoveSelector = ({
         options={movesList || []}
         placeholder="Show me your moves"
         selected={selected || []}
+        inputProps={{
+          style: {
+            minWidth: selectedMove
+              ? `${selectedMove.name.length + 6}ch`
+              : 'auto',
+          },
+        }}
       />
       <span className="move-name show-on-print">{selectedMove?.name}</span>
     </>

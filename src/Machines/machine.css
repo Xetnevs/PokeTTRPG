@@ -67,6 +67,10 @@
   width: 7ch;
 }
 
+.machine-name {
+  white-space: nowrap;
+}
+
 .machine-accuracy-text {
   width: 6ch;
 }

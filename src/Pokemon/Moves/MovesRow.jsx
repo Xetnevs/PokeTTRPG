@@ -42,7 +42,7 @@ const MovesRow = ({ pokemonState, selectedMove, onPokemonStateChange }) => {
       </td>
       {selectedMove ? (
         <>
-          <td>
+          <td className="move-learn-method">
             {selectedMove.learnMethod === 'machine'
               ? 'TM/HM'
               : `At Level ${selectedMove.level}`}

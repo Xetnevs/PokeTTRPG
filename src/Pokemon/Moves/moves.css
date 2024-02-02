@@ -60,6 +60,10 @@
   width: 6ch;
 }
 
+.move-name, .move-learn-method {
+  white-space: nowrap;
+}
+
 .move-power-text,
 .move-pp-text {
   width: 7ch;
