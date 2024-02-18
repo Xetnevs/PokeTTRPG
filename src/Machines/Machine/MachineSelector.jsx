@@ -38,7 +38,7 @@ const MachineSelector = ({ machine, onMachineStateChange }) => {
         selected={selected || []}
         inputProps={{
           style: {
-            minWidth: machine ? `${machine.name.length + 6}ch` : 'auto',
+            minWidth: machine?.name ? `${machine.name.length + 6}ch` : 'auto',
           },
         }}
       />
